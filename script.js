@@ -1,36 +1,41 @@
 // Portfolio Items
 const portfolioItems = [
     {
-        title: 'Project 1',
+        title: 'Modern E-commerce Platform',
         category: 'Web Design',
+        description: 'Full-stack development with React and Node.js',
         image: 'img/website.png'
     },
     {
-        title: 'Project 2',
-        category: 'Graphic Design',
+        title: 'Avarhh Brand Identity',
+        category: 'Brand Design',
+        description: 'Complete brand identity and visual guidelines',
         image: 'img/avarhh.jpg'
     },
     {
-        title: 'Project 3',
+        title: 'Remerciements Campaign',
         category: 'Graphic Design',
+        description: 'Visual design and marketing materials',
         image: 'img/Remerciements.jpg'
     },
     {
-        title: 'Project 4',
-        category: 'Graphic Design',
+        title: 'Nouvelle Collection',
+        category: 'Brand Design',
+        description: 'Fashion brand identity and packaging',
         image: 'img/Nouvelle 2.jpg'
     },
     {
-        title: 'Project 5',
-        category: 'Graphic Design',
+        title: 'Exotic Shawarma',
+        category: 'Brand Design',
+        description: 'Restaurant branding and menu design',
         image: 'img/Exotic Sharwarma.jpg'
     },
     {
-        title: 'Project 6',
-        category: 'Graphic Design',
+        title: 'Goal Setting App',
+        category: 'UI/UX Design',
+        description: 'Mobile app interface and user experience',
         image: 'img/Goal Setting.jpg'
-    },
-    // Add more projects as needed
+    }
 ];
 
 // Populate portfolio grid
@@ -41,15 +46,24 @@ function loadPortfolio() {
         const portfolioItem = document.createElement('div');
         portfolioItem.className = 'portfolio-item';
         portfolioItem.innerHTML = `
-            <img src="${item.image}" alt="${item.title}" onerror="this.onerror=null; console.log('Image failed to load:', this.src);">
-            <div class="portfolio-info">
-                <h3>${item.title}</h3>
-                <p>${item.category}</p>
+            <div class="portfolio-image">
+                <img src="${item.image}" alt="${item.title}">
+                <div class="portfolio-overlay">
+                    <div class="overlay-content">
+                        <span class="project-category">${item.category}</span>
+                        <h3 class="project-title">${item.title}</h3>
+                        <p class="project-description">${item.description}</p>
+                        <div class="project-links">
+                            <button class="project-link view-image"><i class="fas fa-search-plus"></i></button>
+                            <a href="#" class="project-link"><i class="fas fa-link"></i></a>
+                        </div>
+                    </div>
+                </div>
             </div>
         `;
-        
-        // Add click event for lightbox
-        portfolioItem.addEventListener('click', () => {
+
+        // Add click handler for image viewing
+        portfolioItem.querySelector('.view-image').addEventListener('click', () => {
             openLightbox(item.image, item.title);
         });
         
@@ -63,20 +77,20 @@ function openLightbox(imageSrc, title) {
     lightbox.className = 'lightbox';
     lightbox.innerHTML = `
         <div class="lightbox-content">
-            <span class="close-lightbox">&times;</span>
+            <button class="close-lightbox">&times;</button>
             <img src="${imageSrc}" alt="${title}">
             <h3>${title}</h3>
         </div>
     `;
     
     document.body.appendChild(lightbox);
-    document.body.style.overflow = 'hidden'; // Prevent scrolling when lightbox is open
+    document.body.style.overflow = 'hidden';
     
     // Close lightbox when clicking outside or on close button
     lightbox.addEventListener('click', (e) => {
         if (e.target.className === 'lightbox' || e.target.className === 'close-lightbox') {
             document.body.removeChild(lightbox);
-            document.body.style.overflow = 'auto'; // Restore scrolling
+            document.body.style.overflow = 'auto';
         }
     });
     
@@ -90,12 +104,12 @@ function openLightbox(imageSrc, title) {
 }
 
 // Mobile Navigation
-const burger = document.querySelector('.burger');
-const nav = document.querySelector('.nav-links');
+const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+const navMenu = document.querySelector('.nav-menu');
 
-burger.addEventListener('click', () => {
-    nav.classList.toggle('nav-active');
-    burger.classList.toggle('toggle');
+mobileMenuBtn.addEventListener('click', () => {
+    navMenu.classList.toggle('active');
+    mobileMenuBtn.classList.toggle('active');
 });
 
 // Smooth scrolling for navigation links
@@ -108,19 +122,12 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     });
 });
 
-// Form submission
-const contactForm = document.getElementById('contact-form');
-contactForm.addEventListener('submit', (e) => {
-    e.preventDefault();
-    // Add your form submission logic here
-    alert('Message sent successfully!');
-    contactForm.reset();
-});
-
 // Initialize
 document.addEventListener('DOMContentLoaded', () => {
     loadPortfolio();
-    const text = "Hello, I'm Seyi Lawrence"; // Replace with your name
+    
+    // Typewriter effect
+    const text = "Hello, I'm Seyi Lawrence";
     const typewriterElement = document.querySelector('.typewriter-text');
     let i = 0;
     
@@ -128,10 +135,62 @@ document.addEventListener('DOMContentLoaded', () => {
         if (i < text.length) {
             typewriterElement.textContent += text.charAt(i);
             i++;
-            setTimeout(typeWriter, 100); // Adjust speed here (lower number = faster)
+            setTimeout(typeWriter, 100);
         }
     }
     
-    // Start the typewriter effect
-    typeWriter();
-}); 
+    // Clear any existing text and start the typewriter
+    if (typewriterElement) {
+        typewriterElement.textContent = '';
+        typeWriter();
+    }
+});
+
+// Keep only the enhanced version
+const contactForm = document.getElementById('contact-form');
+const showNotification = (message, type) => {
+    const feedback = document.createElement('div');
+    feedback.className = `form-feedback ${type}`;
+    feedback.textContent = message;
+    // ... rest of the enhanced form code
+};
+
+// Get all navigation links
+const navLinks = document.querySelectorAll('.nav-links a');
+
+// Add click event listener to each link
+navLinks.forEach(link => {
+    link.addEventListener('click', () => {
+        // Close the mobile menu
+        navMenu.classList.remove('active');
+        mobileMenuBtn.classList.remove('active');
+    });
+});
+
+function updateActiveSection() {
+    const sections = document.querySelectorAll('section');
+    const navLinks = document.querySelectorAll('.nav-links a');
+    
+    let current = '';
+    
+    sections.forEach(section => {
+        const sectionTop = section.offsetTop;
+        const sectionHeight = section.clientHeight;
+        if (pageYOffset >= (sectionTop - sectionHeight/3)) {
+            current = section.getAttribute('id');
+        }
+    });
+
+    navLinks.forEach(link => {
+        link.classList.remove('active');
+        if (link.getAttribute('href').substring(1) === current) {
+            link.classList.add('active');
+        }
+    });
+}
+
+// Add scroll event listener
+window.addEventListener('scroll', updateActiveSection);
+
+// Call it once on load
+document.addEventListener('DOMContentLoaded', updateActiveSection); 
