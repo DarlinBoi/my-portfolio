@@ -45,27 +45,16 @@ function loadPortfolio() {
     portfolioItems.forEach(item => {
         const portfolioItem = document.createElement('div');
         portfolioItem.className = 'portfolio-item';
+        portfolioItem.setAttribute('data-category', item.category.toLowerCase());
+        
         portfolioItem.innerHTML = `
-            <div class="portfolio-image">
-                <img src="${item.image}" alt="${item.title}">
-                <div class="portfolio-overlay">
-                    <div class="overlay-content">
-                        <span class="project-category">${item.category}</span>
-                        <h3 class="project-title">${item.title}</h3>
-                        <p class="project-description">${item.description}</p>
-                        <div class="project-links">
-                            <button class="project-link view-image"><i class="fas fa-search-plus"></i></button>
-                            <a href="#" class="project-link"><i class="fas fa-link"></i></a>
-                        </div>
-                    </div>
-                </div>
+            <img src="${item.image}" alt="${item.title}">
+            <div class="portfolio-info">
+                <h3>${item.title}</h3>
+                <p>${item.description}</p>
+                <span class="category">${item.category}</span>
             </div>
         `;
-
-        // Add click handler for image viewing
-        portfolioItem.querySelector('.view-image').addEventListener('click', () => {
-            openLightbox(item.image, item.title);
-        });
         
         portfolioGrid.appendChild(portfolioItem);
     });
@@ -126,24 +115,28 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 document.addEventListener('DOMContentLoaded', () => {
     loadPortfolio();
     
-    // Typewriter effect
-    const text = "Hello, I'm Seyi Lawrence";
-    const typewriterElement = document.querySelector('.typewriter-text');
-    let i = 0;
+    // Add filter functionality
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    const portfolioItems = document.querySelectorAll('.portfolio-item');
     
-    function typeWriter() {
-        if (i < text.length) {
-            typewriterElement.textContent += text.charAt(i);
-            i++;
-            setTimeout(typeWriter, 100);
-        }
-    }
-    
-    // Clear any existing text and start the typewriter
-    if (typewriterElement) {
-        typewriterElement.textContent = '';
-        typeWriter();
-    }
+    filterBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            // Remove active class from all buttons
+            filterBtns.forEach(b => b.classList.remove('active'));
+            // Add active class to clicked button
+            btn.classList.add('active');
+            
+            const filter = btn.getAttribute('data-filter');
+            
+            portfolioItems.forEach(item => {
+                if (filter === 'all' || item.getAttribute('data-category').includes(filter)) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        });
+    });
 });
 
 // Keep only the enhanced version
@@ -245,54 +238,58 @@ scrollToTopBtn.addEventListener('click', () => {
 });
 
 // Initialize EmailJS
-(function() {
-    emailjs.init("FPCmuO9ItJ9ieQuDx"); // Add your EmailJS public key here
-})();
+emailjs.init("FPCmuO9ItJ9ieQuDx");
 
-// Handle form submission
-const submitButton = document.querySelector('.submit-btn');
-
-contactForm.addEventListener('submit', function(e) {
-    e.preventDefault();
+// Single DOMContentLoaded event for form handling
+document.addEventListener('DOMContentLoaded', () => {
+    const form = document.getElementById('contact-form');
     
-    // Show loading state
-    submitButton.innerHTML = '<span class="btn-text">Sending...</span><span class="btn-icon"><i class="fas fa-spinner fa-spin"></i></span>';
-    submitButton.disabled = true;
+    if (form) {
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const submitBtn = form.querySelector('.submit-btn');
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<span class="btn-text">Sending...</span><span class="btn-icon"><i class="fas fa-spinner fa-spin"></i></span>';
 
-    // Get form data
-    const formData = {
-        from_name: this.name.value,
-        message: this.message.value,
-        to_name: "Seyi Lawrence Adetunji",
-        from_email: this.email.value,
-        reply_to: this.email.value
-    };
+            try {
+                // Send notification email to you
+                const mainEmailData = {
+                    from_name: form.querySelector('#name').value,
+                    message: form.querySelector('#message').value,
+                    subject: form.querySelector('#subject').value
+                };
+                
+                await emailjs.send('service_zps8h0i', 'template_6qz2vnm', mainEmailData);
+                
+                // Send auto-reply
+                const autoReplyData = {
+                    to_name: form.querySelector('#name').value,
+                    from_name: "Seyi Lawrence",
+                    to_email: form.querySelector('#email').value,
+                    from_email: "seyi_law@yahoo.com",
+                    reply_to: "seyi_law@yahoo.com",
+                    message: "Thank you for reaching out! I have received your message and will get back to you as soon as possible.",
+                    original_message: `
+Your message details:
+Name: ${form.querySelector('#name').value}
+Email: ${form.querySelector('#email').value}
+Subject: ${form.querySelector('#subject').value}
+Message: ${form.querySelector('#message').value}
+                    `
+                };
+                
+                await emailjs.send('service_zps8h0i', 'template_3o9kew8', autoReplyData);
+                
+                alert('Message sent successfully!');
+                form.reset();
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Failed to send message. Please try again.');
+            }
 
-    // Send email using EmailJS
-    emailjs.send('service_zps8h0i', 'template_6qz2vnm', formData)
-        .then(function() {
-            showNotification('Message sent successfully!', 'success');
-            contactForm.reset();
-            submitButton.innerHTML = '<span class="btn-text">Send Message</span><span class="btn-icon"><i class="fas fa-paper-plane"></i></span>';
-            submitButton.disabled = false;
-        })
-        .catch(function(error) {
-            showNotification('Failed to send message. Please try again.', 'error');
-            console.error('Email failed to send:', error);
-            submitButton.innerHTML = '<span class="btn-text">Send Message</span><span class="btn-icon"><i class="fas fa-paper-plane"></i></span>';
-            submitButton.disabled = false;
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = '<span class="btn-text">Send Message</span><span class="btn-icon"><i class="fas fa-paper-plane"></i></span>';
         });
-});
-
-// Add this function at the top of your script
-function showNotification(message, type) {
-    const notification = document.createElement('div');
-    notification.className = `notification ${type}`;
-    notification.textContent = message;
-    document.body.appendChild(notification);
-
-    // Remove notification after 3 seconds
-    setTimeout(() => {
-        notification.remove();
-    }, 3000);
-} 
+    }
+}); 
