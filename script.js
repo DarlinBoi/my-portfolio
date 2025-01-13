@@ -256,37 +256,43 @@ contactForm.addEventListener('submit', function(e) {
     e.preventDefault();
     
     // Show loading state
-    submitButton.textContent = 'Sending...';
+    submitButton.innerHTML = '<span class="btn-text">Sending...</span><span class="btn-icon"><i class="fas fa-spinner fa-spin"></i></span>';
     submitButton.disabled = true;
 
     // Get form data
     const formData = {
-        name: this.name.value,
-        email: this.email.value,
-        message: this.message.value
+        from_name: this.name.value,
+        message: this.message.value,
+        to_name: "Seyi Lawrence Adetunji",
+        from_email: this.email.value,
+        reply_to: this.email.value
     };
 
     // Send email using EmailJS
     emailjs.send('service_zps8h0i', 'template_6qz2vnm', formData)
         .then(function() {
-            // Show success message
-            submitButton.textContent = 'Message Sent!';
+            showNotification('Message sent successfully!', 'success');
             contactForm.reset();
-            
-            // Reset button after 3 seconds
-            setTimeout(() => {
-                submitButton.textContent = 'Send Message';
-                submitButton.disabled = false;
-            }, 3000);
-        }, function(error) {
-            // Show error message
-            submitButton.textContent = 'Error! Try Again';
-            console.log('Email failed to send:', error);
-            
-            // Reset button after 3 seconds
-            setTimeout(() => {
-                submitButton.textContent = 'Send Message';
-                submitButton.disabled = false;
-            }, 3000);
+            submitButton.innerHTML = '<span class="btn-text">Send Message</span><span class="btn-icon"><i class="fas fa-paper-plane"></i></span>';
+            submitButton.disabled = false;
+        })
+        .catch(function(error) {
+            showNotification('Failed to send message. Please try again.', 'error');
+            console.error('Email failed to send:', error);
+            submitButton.innerHTML = '<span class="btn-text">Send Message</span><span class="btn-icon"><i class="fas fa-paper-plane"></i></span>';
+            submitButton.disabled = false;
         });
-}); 
+});
+
+// Add this function at the top of your script
+function showNotification(message, type) {
+    const notification = document.createElement('div');
+    notification.className = `notification ${type}`;
+    notification.textContent = message;
+    document.body.appendChild(notification);
+
+    // Remove notification after 3 seconds
+    setTimeout(() => {
+        notification.remove();
+    }, 3000);
+} 
