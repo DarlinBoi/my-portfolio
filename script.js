@@ -193,4 +193,100 @@ function updateActiveSection() {
 window.addEventListener('scroll', updateActiveSection);
 
 // Call it once on load
-document.addEventListener('DOMContentLoaded', updateActiveSection); 
+document.addEventListener('DOMContentLoaded', updateActiveSection);
+
+document.addEventListener('DOMContentLoaded', () => {
+    const contactBtn = document.querySelector('.contact-btn');
+    const contactDropdown = document.querySelector('.contact-dropdown');
+    let isOpen = false;
+
+    contactBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        isOpen = !isOpen;
+        
+        if (isOpen) {
+            contactDropdown.style.opacity = '1';
+            contactDropdown.style.visibility = 'visible';
+            contactDropdown.style.transform = 'translateY(0)';
+        } else {
+            contactDropdown.style.opacity = '0';
+            contactDropdown.style.visibility = 'hidden';
+            contactDropdown.style.transform = 'translateY(-10px)';
+        }
+    });
+
+    // Close dropdown when clicking outside
+    document.addEventListener('click', (e) => {
+        if (!contactBtn.contains(e.target) && !contactDropdown.contains(e.target)) {
+            isOpen = false;
+            contactDropdown.style.opacity = '0';
+            contactDropdown.style.visibility = 'hidden';
+            contactDropdown.style.transform = 'translateY(-10px)';
+        }
+    });
+});
+
+// Scroll to top functionality
+const scrollToTopBtn = document.getElementById('scrollToTop');
+
+window.addEventListener('scroll', () => {
+    if (window.pageYOffset > 300) {
+        scrollToTopBtn.classList.add('visible');
+    } else {
+        scrollToTopBtn.classList.remove('visible');
+    }
+});
+
+scrollToTopBtn.addEventListener('click', () => {
+    window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+    });
+});
+
+// Initialize EmailJS
+(function() {
+    emailjs.init("FPCmuO9ItJ9ieQuDx"); // Add your EmailJS public key here
+})();
+
+// Handle form submission
+const submitButton = document.querySelector('.submit-btn');
+
+contactForm.addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    // Show loading state
+    submitButton.textContent = 'Sending...';
+    submitButton.disabled = true;
+
+    // Get form data
+    const formData = {
+        name: this.name.value,
+        email: this.email.value,
+        message: this.message.value
+    };
+
+    // Send email using EmailJS
+    emailjs.send('service_zps8h0i', 'template_6qz2vnm', formData)
+        .then(function() {
+            // Show success message
+            submitButton.textContent = 'Message Sent!';
+            contactForm.reset();
+            
+            // Reset button after 3 seconds
+            setTimeout(() => {
+                submitButton.textContent = 'Send Message';
+                submitButton.disabled = false;
+            }, 3000);
+        }, function(error) {
+            // Show error message
+            submitButton.textContent = 'Error! Try Again';
+            console.log('Email failed to send:', error);
+            
+            // Reset button after 3 seconds
+            setTimeout(() => {
+                submitButton.textContent = 'Send Message';
+                submitButton.disabled = false;
+            }, 3000);
+        });
+}); 
