@@ -145,8 +145,9 @@ const showNotification = (message, type) => {
     const feedback = document.createElement('div');
     feedback.className = `form-feedback ${type}`;
     feedback.textContent = message;
-    // ... rest of the enhanced form code
 };
+
+// Add your new email logic here
 
 // Get all navigation links
 const navLinks = document.querySelectorAll('.nav-links a');
@@ -237,10 +238,6 @@ scrollToTopBtn.addEventListener('click', () => {
     });
 });
 
-// Initialize EmailJS
-emailjs.init("FPCmuO9ItJ9ieQuDx");
-
-// Single DOMContentLoaded event for form handling
 document.addEventListener('DOMContentLoaded', () => {
     const form = document.getElementById('contact-form');
     
@@ -256,30 +253,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 // Send notification email to you
                 const mainEmailData = {
                     from_name: form.querySelector('#name').value,
-                    message: form.querySelector('#message').value,
-                    subject: form.querySelector('#subject').value
+                    from_email: form.querySelector('#email').value,
+                    subject: form.querySelector('#subject').value,
+                    message: form.querySelector('#message').value
                 };
                 
-                await emailjs.send('service_zps8h0i', 'template_6qz2vnm', mainEmailData);
-                
-                // Send auto-reply
-                const autoReplyData = {
-                    to_name: form.querySelector('#name').value,
-                    from_name: "Seyi Lawrence",
-                    to_email: form.querySelector('#email').value,
-                    from_email: "seyi_law@yahoo.com",
-                    reply_to: "seyi_law@yahoo.com",
-                    message: "Thank you for reaching out! I have received your message and will get back to you as soon as possible.",
-                    original_message: `
-Your message details:
-Name: ${form.querySelector('#name').value}
-Email: ${form.querySelector('#email').value}
-Subject: ${form.querySelector('#subject').value}
-Message: ${form.querySelector('#message').value}
-                    `
-                };
-                
-                await emailjs.send('service_zps8h0i', 'template_3o9kew8', autoReplyData);
+                console.log('Sending main notification with:', mainEmailData);
+                await emailjs.send('service_zps8h0i', 'template_8ht37op', mainEmailData);
+                console.log('Main notification sent successfully');
                 
                 alert('Message sent successfully!');
                 form.reset();
