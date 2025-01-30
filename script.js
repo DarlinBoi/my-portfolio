@@ -95,6 +95,14 @@ function openLightbox(currentIndex) {
     document.body.appendChild(lightbox);
     document.body.style.overflow = 'hidden';
     document.querySelector('.navbar').style.display = 'none';
+
+    // Add click event to image for fullscreen view on mobile/tablet
+    const lightboxImage = lightbox.querySelector('.lightbox-image-container img');
+    lightboxImage.addEventListener('click', () => {
+        if (window.innerWidth <= 991) {
+            openFullscreenViewer(currentIndex);
+        }
+    });
     
     // Navigation functions
     function showNextImage() {
@@ -175,7 +183,95 @@ function openLightbox(currentIndex) {
             document.body.removeChild(lightbox);
             document.removeEventListener('keydown', handleKeyPress);
         }, 300);
+    }
+}
+
+// Add new fullscreen viewer functionality
+function openFullscreenViewer(startIndex) {
+    let currentIndex = startIndex;
+    const viewer = document.createElement('div');
+    viewer.className = 'fullscreen-viewer';
+    
+    // Create image wrapper for swipe functionality
+    const imageWrapper = document.createElement('div');
+    imageWrapper.className = 'fullscreen-image-wrapper';
+    
+    // Add all images
+    portfolioItems.forEach((item, index) => {
+        const slide = document.createElement('div');
+        slide.className = 'fullscreen-slide';
+        slide.innerHTML = `<img src="${item.image}" alt="${item.title}" class="fullscreen-image">`;
+        imageWrapper.appendChild(slide);
+    });
+    
+    viewer.innerHTML = `
+        <div class="fullscreen-counter">
+            ${startIndex + 1} of ${portfolioItems.length}
+        </div>
+        <button class="fullscreen-close">
+            <i class="fas fa-times"></i>
+        </button>
+    `;
+    
+    const container = document.createElement('div');
+    container.className = 'fullscreen-image-container';
+    container.appendChild(imageWrapper);
+    viewer.appendChild(container);
+    
+    document.body.appendChild(viewer);
+    setTimeout(() => viewer.classList.add('active'), 0);
+    
+    // Set initial position
+    imageWrapper.style.transform = `translateX(-${currentIndex * 100}%)`;
+    
+    // Touch handling
+    let touchStartX = 0;
+    let touchEndX = 0;
+    let currentTranslate = 0;
+    let prevTranslate = 0;
+    let isDragging = false;
+    
+    container.addEventListener('touchstart', (e) => {
+        touchStartX = e.touches[0].clientX;
+        isDragging = true;
+        prevTranslate = currentTranslate;
+    });
+    
+    container.addEventListener('touchmove', (e) => {
+        if (!isDragging) return;
+        touchEndX = e.touches[0].clientX;
+        const diff = touchEndX - touchStartX;
+        currentTranslate = prevTranslate + diff;
+        imageWrapper.style.transform = `translateX(${currentTranslate}px)`;
+    });
+    
+    container.addEventListener('touchend', () => {
+        isDragging = false;
+        const movedBy = currentTranslate - prevTranslate;
+        
+        if (Math.abs(movedBy) > 100) {
+            if (movedBy > 0 && currentIndex > 0) {
+                currentIndex--;
+            } else if (movedBy < 0 && currentIndex < portfolioItems.length - 1) {
+                currentIndex++;
+            }
         }
+        
+        currentTranslate = currentIndex * -100;
+        imageWrapper.style.transition = 'transform 0.3s ease-out';
+        imageWrapper.style.transform = `translateX(${currentIndex * -100}%)`;
+        setTimeout(() => imageWrapper.style.transition = '', 300);
+        
+        // Update counter
+        viewer.querySelector('.fullscreen-counter').textContent = 
+            `${currentIndex + 1} of ${portfolioItems.length}`;
+    });
+    
+    // Close button handler
+    viewer.querySelector('.fullscreen-close').addEventListener('click', () => {
+        viewer.classList.remove('active');
+        setTimeout(() => document.body.removeChild(viewer), 300);
+    });
 }
 
 // Mobile Navigation
