@@ -11,10 +11,12 @@
     <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
 </head>
 <body>
+    <div class="custom-cursor"></div>
+    <div class="cursor-dot"></div>
     <!-- Navigation -->
     <header class="navbar navbar-expand-lg fixed-top custom-navbar">
         <div class="container">
-            <a href="#" class="navbar-brand logo">
+            <a href="#home" class="navbar-brand logo">
                 <span class="logo-text">Seyi Lawrence</span>
                 <div class="logo-accent"></div>
             </a>
@@ -60,7 +62,7 @@
         <div class="container">
             <div class="text-center">
             <div class="avatar">
-                <img src="img/seyi.jpg" alt="Profile" class="avatar-image">
+                <img src="img/seyi.jpg" alt="Profile" class="avatar-image" loading="lazy">
             </div>
             <div class="hero-intro">Hi, I'm Seyi <span class="wave-emoji">👋</span></div>
             <h1 class="hero-title">
@@ -84,17 +86,17 @@
     <!-- About Section -->
     <section id="about" class="about py-5">
         <div class="container">
-            <div class="text-center mb-5">
+            <div class="text-center mb-5 reveal">
                 <span class="section-badge">About Me</span>
                 <h2 class="section-title">Crafting Digital Excellence</h2>
                 <div class="section-subtitle">With over 5 years of experience in digital design and development</div>
             </div>
             
             <div class="row align-items-stretch">
-                <div class="col-lg-5 mb-4 mb-lg-0">
+                <div class="col-lg-5 mb-4 mb-lg-0 reveal reveal-delay-1">
                     <div class="about-image-wrapper">
                 <div class="about-image">
-                            <img src="img/profile.png" alt="About Me" class="main-image">
+                            <img src="img/profile.png" alt="About Me" class="main-image" loading="lazy">
                         <div class="image-shape"></div>
                         <div class="experience-badge">
                                 <div class="badge-content">
@@ -107,7 +109,7 @@
                     </div>
                 </div>
                 
-                <div class="col-lg-7">
+                <div class="col-lg-7 reveal reveal-delay-2">
                     <div class="about-content">
                         <div class="row about-cards g-4 mb-4">
                             <div class="col-md-4">
@@ -169,20 +171,20 @@
     <!-- Work Section -->
     <section id="work" class="work py-5">
         <div class="container">
-            <div class="text-center mb-5">
+            <div class="text-center mb-5 reveal">
                 <span class="section-badge">Portfolio</span>
                 <h2 class="section-title">Featured Projects</h2>
                 <div class="section-subtitle">Showcasing some of my best work</div>
             </div>
 
-            <div class="portfolio-filters text-center mb-4">
+            <div class="portfolio-filters text-center mb-4 reveal reveal-delay-1">
                 <button class="filter-btn active" data-filter="all">All</button>
                 <button class="filter-btn" data-filter="web">Web Design</button>
                 <button class="filter-btn" data-filter="app">App Design</button>
                 <button class="filter-btn" data-filter="brand">Branding</button>
             </div>
 
-            <div class="portfolio-grid row g-4">
+            <div class="portfolio-grid row g-4 reveal reveal-delay-2">
                 <!-- Items will be inserted here by JavaScript -->
             </div>
         </div>
@@ -191,40 +193,40 @@
     <!-- Contact Section -->
     <section id="contact" class="contact py-5">
         <div class="container">
-            <div class="text-center mb-5">
+            <div class="text-center mb-5 reveal">
                 <span class="section-badge">Contact</span>
                 <h2 class="section-title">Let's Work Together</h2>
                 <div class="section-subtitle">Get in touch for collaborations or inquiries</div>
             </div>
 
             <div class="row">
-                <div class="col-lg-4">
-                <div class="contact-info">
-                    <div class="info-card">
-                        <div class="icon-circle">
-                            <i class="fas fa-map-marker-alt"></i>
+                <div class="col-lg-4 reveal reveal-delay-1">
+                    <div class="contact-info">
+                        <div class="info-card" onclick="window.location.href='tel:+233596077697'">
+                            <div class="icon-circle">
+                                <i class="fas fa-phone"></i>
+                            </div>
+                            <h3>Phone</h3>
+                            <a href="tel:+233596077697">+233 59 607 7697</a>
                         </div>
-                        <h3>Location</h3>
-                        <p>Accra, Ghana</p>
-                    </div>
-                    <div class="info-card">
-                        <div class="icon-circle">
-                            <i class="fas fa-envelope"></i>
+                        <div class="info-card" onclick="window.location.href='mailto:seyi_law@yahoo.com'">
+                            <div class="icon-circle">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <h3>Email</h3>
+                            <a href="mailto:seyi_law@yahoo.com">seyi_law@yahoo.com</a>
                         </div>
-                        <h3>Email</h3>
-                        <a href="mailto:seyi_law@yahoo.com">seyi_law@yahoo.com</a>
-                    </div>
-                    <div class="info-card">
-                        <div class="icon-circle">
-                            <i class="fas fa-phone"></i>
+                        <div class="info-card">
+                            <div class="icon-circle">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <h3>Location</h3>
+                            <p>Accra, Ghana</p>
                         </div>
-                        <h3>Phone</h3>
-                        <a href="tel:+233596077697">+233 59 607 7697</a>
-                    </div>
                     </div>
                 </div>
 
-                <div class="col-lg-8">
+                <div class="col-lg-8 reveal reveal-delay-2">
                 <div class="contact-form-container">
                     <form id="contact-form" method="POST">
                             <div class="form-group mb-4">
@@ -267,8 +269,8 @@
         <div class="container">
             <div class="footer-content">
                 <div class="footer-left">
-                    <a href="#" class="footer-logo">
-                        <span class="logo-text">Seyi</span>
+                    <a href="#home" class="footer-logo">
+                        <span class="logo-text">Seyi Lawrence</span>
                         <span class="logo-dot">.</span>
                     </a>
                     <p class="footer-description">

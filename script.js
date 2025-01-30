@@ -50,10 +50,10 @@ function loadPortfolio() {
         portfolioItem.innerHTML = `
             <div class="card">
                 <img src="${item.image}" class="card-img-top" alt="${item.title}">
-                <div class="portfolio-info">
+            <div class="portfolio-info">
                     <h3 class="project-title">${item.title}</h3>
                     <p class="project-description">${item.description}</p>
-                    <span class="category">${item.category}</span>
+                <span class="category">${item.category}</span>
                 </div>
             </div>
         `;
@@ -175,7 +175,7 @@ function openLightbox(currentIndex) {
             document.body.removeChild(lightbox);
             document.removeEventListener('keydown', handleKeyPress);
         }, 300);
-    }
+        }
 }
 
 // Mobile Navigation
@@ -324,6 +324,12 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     });
+
+    // Custom Cursor
+    initCustomCursor();
+
+    // Lazy Loading
+    initLazyLoading();
 });
 
 // Notification close function
@@ -410,4 +416,149 @@ document.addEventListener('DOMContentLoaded', () => {
             contactDropdown.style.transform = 'translateY(-10px)';
         }
     });
-}); 
+});
+
+// Scroll Reveal
+const revealElements = document.querySelectorAll('.reveal');
+
+function checkReveal() {
+    const triggerBottom = window.innerHeight * 0.8;
+
+    revealElements.forEach(element => {
+        const elementTop = element.getBoundingClientRect().top;
+
+        if (elementTop < triggerBottom) {
+            element.classList.add('active');
+        }
+    });
+}
+
+window.addEventListener('scroll', checkReveal);
+// Initial check for elements in view
+document.addEventListener('DOMContentLoaded', checkReveal);
+
+// Custom Cursor
+function initCustomCursor() {
+    const cursor = document.querySelector('.custom-cursor');
+    const cursorDot = document.querySelector('.cursor-dot');
+    const body = document.body;
+
+    // Check if device supports hover
+    const hasHover = window.matchMedia('(hover: hover)').matches;
+    if (hasHover) {
+        body.classList.add('custom-cursor-active');
+    } else {
+        return; // Exit if device doesn't support hover
+    }
+
+    // Cursor Movement
+    document.addEventListener('mousemove', (e) => {
+        requestAnimationFrame(() => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+            cursorDot.style.left = e.clientX + 'px';
+            cursorDot.style.top = e.clientY + 'px';
+        });
+    });
+
+    // Click Animation
+    document.addEventListener('mousedown', () => {
+        cursor.classList.add('clicking');
+        cursorDot.classList.add('clicking');
+    });
+
+    document.addEventListener('mouseup', () => {
+        cursor.classList.remove('clicking');
+        cursorDot.classList.remove('clicking');
+    });
+
+    // Hide cursor when leaving window
+    document.addEventListener('mouseleave', () => {
+        cursor.style.opacity = '0';
+        cursorDot.style.opacity = '0';
+    });
+
+    document.addEventListener('mouseenter', () => {
+        cursor.style.opacity = '1';
+        cursorDot.style.opacity = '1';
+    });
+
+    // Add data-cursor attributes to elements
+    const interactiveElements = document.querySelectorAll('a, button, input, textarea');
+    interactiveElements.forEach(el => {
+        if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
+            el.setAttribute('data-cursor', 'text');
+        } else {
+            el.setAttribute('data-cursor', 'pointer');
+        }
+    });
+}
+
+// Lazy Loading Implementation
+function initLazyLoading() {
+    const lazyImages = document.querySelectorAll('img[loading="lazy"]');
+    const imageObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const img = entry.target;
+                img.classList.add('lazy-loading');
+                
+                // Create a temporary image to preload
+                const tempImage = new Image();
+                tempImage.src = img.src;
+                
+                tempImage.onload = () => {
+                    img.classList.remove('lazy-loading');
+                    img.classList.add('lazy-loaded');
+                    observer.unobserve(img);
+                };
+            }
+        });
+    }, {
+        root: null,
+        rootMargin: '50px',
+        threshold: 0.1
+    });
+
+    lazyImages.forEach(img => {
+        imageObserver.observe(img);
+        // Add initial classes for animation
+        img.classList.add('lazy-image');
+    });
+
+    // Handle background images
+    const lazyBackgrounds = document.querySelectorAll('.lazy-background');
+    const bgObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const element = entry.target;
+                const url = element.getAttribute('data-background');
+                
+                if (url) {
+                    element.classList.add('lazy-loading');
+                    
+                    // Preload the background image
+                    const tempImage = new Image();
+                    tempImage.src = url;
+                    
+                    tempImage.onload = () => {
+                        element.style.backgroundImage = `url(${url})`;
+                        element.classList.remove('lazy-loading');
+                        element.classList.add('lazy-loaded');
+                        observer.unobserve(element);
+                    };
+                }
+            }
+        });
+    }, {
+        root: null,
+        rootMargin: '50px',
+        threshold: 0.1
+    });
+
+    lazyBackgrounds.forEach(bg => {
+        bgObserver.observe(bg);
+        // Add initial classes for animation
+        bg.classList.add('lazy-element');
+    });
+} 
