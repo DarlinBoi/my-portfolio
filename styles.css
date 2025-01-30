@@ -643,28 +643,24 @@ body {
     transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     position: relative;
     overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
 
-.filter-btn::after {
-    content: '';
-    position: absolute;
-    bottom: -2px;
-    left: 0;
-    width: 100%;
-    height: 2px;
+.filter-btn.active {
     background: var(--secondary);
-    transform: scaleX(0);
-    transition: transform 0.3s ease;
-    transform-origin: right;
+    color: var(--primary);
+    font-weight: 600;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(167, 216, 243, 0.3);
 }
 
-.filter-btn:hover::after {
-    transform: scaleX(1);
-    transform-origin: left;
+.filter-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 .filter-btn:active {
-    transform: scale(0.95);
+    transform: translateY(-1px);
 }
 
 .portfolio-grid {
