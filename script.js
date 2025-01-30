@@ -222,49 +222,62 @@ function openFullscreenViewer(startIndex) {
     setTimeout(() => viewer.classList.add('active'), 0);
     
     // Set initial position
-    imageWrapper.style.transform = `translateX(-${currentIndex * 100}%)`;
+    updateSlidePosition(currentIndex);
     
-    // Touch handling
+    // Touch handling variables
     let touchStartX = 0;
     let touchEndX = 0;
-    let currentTranslate = 0;
-    let prevTranslate = 0;
-    let isDragging = false;
+    let initialTransform = 0;
     
-    container.addEventListener('touchstart', (e) => {
-        touchStartX = e.touches[0].clientX;
-        isDragging = true;
-        prevTranslate = currentTranslate;
-    });
+    function updateSlidePosition(index, animate = true) {
+        if (animate) {
+            imageWrapper.style.transition = 'transform 0.3s ease-out';
+        } else {
+            imageWrapper.style.transition = 'none';
+        }
+        imageWrapper.style.transform = `translateX(-${index * 100}%)`;
+        viewer.querySelector('.fullscreen-counter').textContent = 
+            `${index + 1} of ${portfolioItems.length}`;
+    }
     
-    container.addEventListener('touchmove', (e) => {
-        if (!isDragging) return;
-        touchEndX = e.touches[0].clientX;
-        const diff = touchEndX - touchStartX;
-        currentTranslate = prevTranslate + diff;
-        imageWrapper.style.transform = `translateX(${currentTranslate}px)`;
-    });
-    
-    container.addEventListener('touchend', () => {
-        isDragging = false;
-        const movedBy = currentTranslate - prevTranslate;
-        
-        if (Math.abs(movedBy) > 100) {
-            if (movedBy > 0 && currentIndex > 0) {
+    function handleSwipe(diffX) {
+        const threshold = window.innerWidth * 0.2; // 20% of screen width
+        if (Math.abs(diffX) > threshold) {
+            if (diffX > 0 && currentIndex > 0) {
                 currentIndex--;
-            } else if (movedBy < 0 && currentIndex < portfolioItems.length - 1) {
+            } else if (diffX < 0 && currentIndex < portfolioItems.length - 1) {
                 currentIndex++;
             }
         }
+        updateSlidePosition(currentIndex);
+    }
+    
+    container.addEventListener('touchstart', (e) => {
+        touchStartX = e.touches[0].clientX;
+        initialTransform = -currentIndex * 100;
+        imageWrapper.style.transition = 'none';
+    }, { passive: true });
+    
+    container.addEventListener('touchmove', (e) => {
+        touchEndX = e.touches[0].clientX;
+        const diffX = touchEndX - touchStartX;
+        const percentMoved = (diffX / window.innerWidth) * 100;
+        const newTransform = initialTransform + percentMoved;
         
-        currentTranslate = currentIndex * -100;
-        imageWrapper.style.transition = 'transform 0.3s ease-out';
-        imageWrapper.style.transform = `translateX(${currentIndex * -100}%)`;
-        setTimeout(() => imageWrapper.style.transition = '', 300);
+        // Limit the transform to prevent overscrolling
+        if (
+            (currentIndex === 0 && diffX > 0) || 
+            (currentIndex === portfolioItems.length - 1 && diffX < 0)
+        ) {
+            return;
+        }
         
-        // Update counter
-        viewer.querySelector('.fullscreen-counter').textContent = 
-            `${currentIndex + 1} of ${portfolioItems.length}`;
+        imageWrapper.style.transform = `translateX(${newTransform}%)`;
+    }, { passive: true });
+    
+    container.addEventListener('touchend', () => {
+        const diffX = touchEndX - touchStartX;
+        handleSwipe(diffX);
     });
     
     // Close button handler
