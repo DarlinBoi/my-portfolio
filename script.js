@@ -202,21 +202,82 @@ function openFullscreenViewer(startIndex) {
         slide.className = 'fullscreen-slide';
         slide.innerHTML = `<img src="${item.image}" alt="${item.title}" class="fullscreen-image">`;
         
-        // Add double click handler for zoom
         const img = slide.querySelector('.fullscreen-image');
-        slide.addEventListener('dblclick', (e) => {
-            const slideEl = e.target.closest('.fullscreen-slide');
-            if (slideEl.classList.contains('zoomed')) {
-                slideEl.classList.remove('zoomed');
-                imageWrapper.style.transform = `translateX(-${currentIndex * 100}%)`;
+        
+        // Handle double tap
+        let lastTap = 0;
+        let touchTimeout;
+        
+        slide.addEventListener('touchend', (e) => {
+            const currentTime = new Date().getTime();
+            const tapLength = currentTime - lastTap;
+            
+            clearTimeout(touchTimeout);
+            
+            if (tapLength < 300 && tapLength > 0) {
+                // Double tap detected
+                const slideEl = e.target.closest('.fullscreen-slide');
+                if (slideEl.classList.contains('zoomed')) {
+                    slideEl.classList.remove('zoomed');
+                    img.style.transform = 'scale(1)';
+                } else {
+                    slideEl.classList.add('zoomed');
+                    img.style.transform = 'scale(2.5)';
+                    
+                    // Center zoom on tap position
+                    const touch = e.changedTouches[0];
+                    const rect = img.getBoundingClientRect();
+                    const x = touch.clientX - rect.left;
+                    const y = touch.clientY - rect.top;
+                    img.style.transformOrigin = `${(x / rect.width) * 100}% ${(y / rect.height) * 100}%`;
+                }
+                e.preventDefault();
             } else {
-                slideEl.classList.add('zoomed');
-                // Center zoom on double click position
-                const rect = img.getBoundingClientRect();
-                const x = e.clientX - rect.left;
-                const y = e.clientY - rect.top;
-                const transformOrigin = `${(x / rect.width) * 100}% ${(y / rect.height) * 100}%`;
-                img.style.transformOrigin = transformOrigin;
+                // Single tap - set up for potential double tap
+                lastTap = currentTime;
+            }
+        });
+        
+        // Handle pinch zoom
+        let initialDistance = 0;
+        let currentScale = 1;
+        
+        slide.addEventListener('touchstart', (e) => {
+            if (e.touches.length === 2) {
+                initialDistance = Math.hypot(
+                    e.touches[0].clientX - e.touches[1].clientX,
+                    e.touches[0].clientY - e.touches[1].clientY
+                );
+            }
+        });
+        
+        slide.addEventListener('touchmove', (e) => {
+            if (e.touches.length === 2) {
+                e.preventDefault();
+                const currentDistance = Math.hypot(
+                    e.touches[0].clientX - e.touches[1].clientX,
+                    e.touches[0].clientY - e.touches[1].clientY
+                );
+                
+                if (initialDistance > 0) {
+                    const newScale = (currentDistance / initialDistance) * currentScale;
+                    // Limit scale between 1 and 3
+                    const limitedScale = Math.min(Math.max(newScale, 1), 3);
+                    img.style.transform = `scale(${limitedScale})`;
+                    
+                    if (limitedScale > 1) {
+                        slide.classList.add('zoomed');
+                    } else {
+                        slide.classList.remove('zoomed');
+                    }
+                }
+            }
+        });
+        
+        slide.addEventListener('touchend', (e) => {
+            if (e.touches.length < 2) {
+                initialDistance = 0;
+                currentScale = parseFloat(img.style.transform.replace('scale(', '').replace(')', '') || 1);
             }
         });
         
@@ -251,6 +312,8 @@ function openFullscreenViewer(startIndex) {
     function updateSlidePosition(index, animate = true) {
         const currentSlide = imageWrapper.children[currentIndex];
         if (currentSlide.classList.contains('zoomed')) {
+            const img = currentSlide.querySelector('.fullscreen-image');
+            img.style.transform = 'scale(1)';
             currentSlide.classList.remove('zoomed');
         }
         
