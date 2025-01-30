@@ -201,6 +201,25 @@ function openFullscreenViewer(startIndex) {
         const slide = document.createElement('div');
         slide.className = 'fullscreen-slide';
         slide.innerHTML = `<img src="${item.image}" alt="${item.title}" class="fullscreen-image">`;
+        
+        // Add double click handler for zoom
+        const img = slide.querySelector('.fullscreen-image');
+        slide.addEventListener('dblclick', (e) => {
+            const slideEl = e.target.closest('.fullscreen-slide');
+            if (slideEl.classList.contains('zoomed')) {
+                slideEl.classList.remove('zoomed');
+                imageWrapper.style.transform = `translateX(-${currentIndex * 100}%)`;
+            } else {
+                slideEl.classList.add('zoomed');
+                // Center zoom on double click position
+                const rect = img.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                const transformOrigin = `${(x / rect.width) * 100}% ${(y / rect.height) * 100}%`;
+                img.style.transformOrigin = transformOrigin;
+            }
+        });
+        
         imageWrapper.appendChild(slide);
     });
     
@@ -230,6 +249,11 @@ function openFullscreenViewer(startIndex) {
     let initialTransform = 0;
     
     function updateSlidePosition(index, animate = true) {
+        const currentSlide = imageWrapper.children[currentIndex];
+        if (currentSlide.classList.contains('zoomed')) {
+            currentSlide.classList.remove('zoomed');
+        }
+        
         if (animate) {
             imageWrapper.style.transition = 'transform 0.3s ease-out';
         } else {
@@ -241,6 +265,11 @@ function openFullscreenViewer(startIndex) {
     }
     
     function handleSwipe(diffX) {
+        const currentSlide = imageWrapper.children[currentIndex];
+        if (currentSlide.classList.contains('zoomed')) {
+            return; // Don't swipe while zoomed
+        }
+        
         const threshold = window.innerWidth * 0.2; // 20% of screen width
         if (Math.abs(diffX) > threshold) {
             if (diffX > 0 && currentIndex > 0) {
@@ -253,12 +282,20 @@ function openFullscreenViewer(startIndex) {
     }
     
     container.addEventListener('touchstart', (e) => {
+        const currentSlide = imageWrapper.children[currentIndex];
+        if (currentSlide.classList.contains('zoomed')) {
+            return; // Don't handle touch events while zoomed
+        }
         touchStartX = e.touches[0].clientX;
         initialTransform = -currentIndex * 100;
         imageWrapper.style.transition = 'none';
     }, { passive: true });
     
     container.addEventListener('touchmove', (e) => {
+        const currentSlide = imageWrapper.children[currentIndex];
+        if (currentSlide.classList.contains('zoomed')) {
+            return; // Don't handle touch events while zoomed
+        }
         touchEndX = e.touches[0].clientX;
         const diffX = touchEndX - touchStartX;
         const percentMoved = (diffX / window.innerWidth) * 100;
@@ -276,15 +313,33 @@ function openFullscreenViewer(startIndex) {
     }, { passive: true });
     
     container.addEventListener('touchend', () => {
+        const currentSlide = imageWrapper.children[currentIndex];
+        if (currentSlide.classList.contains('zoomed')) {
+            return; // Don't handle touch events while zoomed
+        }
         const diffX = touchEndX - touchStartX;
         handleSwipe(diffX);
     });
     
-    // Close button handler
-    viewer.querySelector('.fullscreen-close').addEventListener('click', () => {
+    function closeViewer() {
         viewer.classList.remove('active');
-        setTimeout(() => document.body.removeChild(viewer), 300);
-    });
+        setTimeout(() => {
+            document.body.removeChild(viewer);
+        }, 300);
+    }
+    
+    // Close button handler
+    viewer.querySelector('.fullscreen-close').addEventListener('click', closeViewer);
+    
+    // Handle back button
+    const handleBackButton = (e) => {
+        closeViewer();
+        window.removeEventListener('popstate', handleBackButton);
+    };
+    
+    // Push state when opening viewer
+    history.pushState({ viewer: true }, '');
+    window.addEventListener('popstate', handleBackButton);
 }
 
 // Mobile Navigation

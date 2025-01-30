@@ -2240,7 +2240,7 @@ img.lazy-image {
     background: #000;
     z-index: 1200;
     display: none;
-    touch-action: pan-y pinch-zoom;
+    touch-action: none;
 }
 
 .fullscreen-viewer.active {
@@ -2272,6 +2272,8 @@ img.lazy-image {
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
+    transform-origin: center;
+    transition: transform 0.3s ease-out;
 }
 
 .fullscreen-image {
@@ -2280,6 +2282,21 @@ img.lazy-image {
     object-fit: contain;
     user-select: none;
     -webkit-user-select: none;
+    transition: transform 0.3s ease-out;
+}
+
+.fullscreen-slide.zoomed {
+    overflow: auto;
+    touch-action: pan-x pan-y;
+}
+
+.fullscreen-slide.zoomed .fullscreen-image {
+    transform: scale(2);
+    cursor: zoom-out;
+}
+
+.fullscreen-image:not(.zoomed) {
+    cursor: zoom-in;
 }
 
 .fullscreen-counter {
