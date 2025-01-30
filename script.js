@@ -263,32 +263,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Scroll to top functionality
-    let lastScrollTop = 0;
-    const scrollToTopBtn = document.getElementById('scrollToTop');
-
-    window.addEventListener('scroll', () => {
-        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-        const windowHeight = window.innerHeight;
-        const documentHeight = document.documentElement.scrollHeight;
-        const isAtBottom = (windowHeight + Math.round(scrollTop)) >= documentHeight - 10; // 10px threshold
-
-        if (isAtBottom) {
-            scrollToTopBtn.classList.remove('visible');
-        } else if (scrollTop > 300) {
-            scrollToTopBtn.classList.add('visible');
-        } else {
-            scrollToTopBtn.classList.remove('visible');
-        }
-
-        lastScrollTop = scrollTop;
-    });
-
-    scrollToTopBtn.addEventListener('click', () => {
-        window.scrollTo({
-            top: 0,
-            behavior: 'smooth'
-        });
-    });
+    initScrollToTop();
 
     // Active navigation link on scroll
     const sections = document.querySelectorAll('section');
@@ -561,4 +536,52 @@ function initLazyLoading() {
         // Add initial classes for animation
         bg.classList.add('lazy-element');
     });
+}
+
+// Scroll to top functionality
+function initScrollToTop() {
+    const scrollTopBtn = document.createElement('button');
+    scrollTopBtn.className = 'scroll-top-btn';
+    scrollTopBtn.innerHTML = '<i class="fas fa-arrow-up"></i>';
+    document.body.appendChild(scrollTopBtn);
+
+    function handleScroll() {
+        const scrollPosition = window.pageYOffset || document.documentElement.scrollTop;
+        const windowHeight = window.innerHeight;
+        const documentHeight = Math.max(
+            document.body.scrollHeight,
+            document.body.offsetHeight,
+            document.documentElement.clientHeight,
+            document.documentElement.scrollHeight,
+            document.documentElement.offsetHeight
+        );
+
+        // Show button when scrolled down more than 300px
+        if (scrollPosition > 300) {
+            // Hide button when at the bottom of the page
+            if (scrollPosition + windowHeight >= documentHeight - 50) {
+                scrollTopBtn.classList.remove('visible');
+            } else {
+                scrollTopBtn.classList.add('visible');
+            }
+        } else {
+            // Hide button when near the top
+            scrollTopBtn.classList.remove('visible');
+        }
+    }
+
+    function scrollToTop(e) {
+        e.preventDefault();
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    }
+
+    // Add event listeners with passive option for better performance
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    scrollTopBtn.addEventListener('click', scrollToTop);
+    
+    // Initial check for scroll position
+    handleScroll();
 } 
