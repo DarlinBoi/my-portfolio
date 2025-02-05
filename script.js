@@ -1,36 +1,42 @@
 // Portfolio Items
 const portfolioItems = [
     {
+        id: 'ecommerce',
         title: 'Modern E-commerce Platform',
         category: 'Web Design',
         description: 'Full-stack development with React and Node.js',
         image: 'img/website.png'
     },
     {
+        id: 'avarhh',
         title: 'Avarhh Brand Identity',
         category: 'Brand Design',
         description: 'Complete brand identity and visual guidelines',
         image: 'img/avarhh.jpg'
     },
     {
+        id: 'remerciements',
         title: 'Remerciements Campaign',
         category: 'Graphic Design',
         description: 'Visual design and marketing materials',
         image: 'img/Remerciements.jpg'
     },
     {
+        id: 'nouvelle',
         title: 'Nouvelle Collection',
         category: 'Brand Design',
         description: 'Fashion brand identity and packaging',
         image: 'img/Nouvelle 2.jpg'
     },
     {
+        id: 'exotic',
         title: 'Exotic Shawarma',
         category: 'Brand Design',
         description: 'Restaurant branding and menu design',
         image: 'img/Exotic Sharwarma.jpg'
     },
     {
+        id: 'goal',
         title: 'Goal Setting App',
         category: 'UI/UX Design',
         description: 'Mobile app interface and user experience',
@@ -50,10 +56,10 @@ function loadPortfolio() {
         portfolioItem.innerHTML = `
             <div class="card">
                 <img src="${item.image}" class="card-img-top" alt="${item.title}">
-            <div class="portfolio-info">
-                    <h3 class="project-title">${item.title}</h3>
-                    <p class="project-description">${item.description}</p>
-                <span class="category">${item.category}</span>
+                <div class="portfolio-info">
+                    <h3 class="project-title" data-i18n="work.projects.${item.id}.title">${item.title}</h3>
+                    <p class="project-description" data-i18n="work.projects.${item.id}.description">${item.description}</p>
+                    <span class="category" data-i18n="work.projects.${item.id}.category">${item.category}</span>
                 </div>
             </div>
         `;
@@ -82,12 +88,12 @@ function openLightbox(currentIndex) {
                 <i class="fas fa-chevron-right"></i>
             </button>
             <div class="lightbox-image-container">
-                <img src="${item.image}" alt="${item.title}">
+                <img src="${item.image}" alt="${i18next.t(`work.projects.${item.id}.title`)}">
             </div>
             <div class="lightbox-text">
-                <h3>${item.title}</h3>
-                <p>${item.description}</p>
-                <span class="category">${item.category}</span>
+                <h3 data-i18n="work.projects.${item.id}.title">${i18next.t(`work.projects.${item.id}.title`)}</h3>
+                <p data-i18n="work.projects.${item.id}.description">${i18next.t(`work.projects.${item.id}.description`)}</p>
+                <span class="category" data-i18n="work.projects.${item.id}.category">${i18next.t(`work.projects.${item.id}.category`)}</span>
             </div>
         </div>
     `;
@@ -117,11 +123,11 @@ function openLightbox(currentIndex) {
         textContainer.classList.add('fade-out');
         
         setTimeout(() => {
-            imgContainer.innerHTML = `<img src="${item.image}" alt="${item.title}">`;
+            imgContainer.innerHTML = `<img src="${item.image}" alt="${i18next.t(`work.projects.${item.id}.title`)}">`;
             textContainer.innerHTML = `
-                <h3>${item.title}</h3>
-                <p>${item.description}</p>
-                <span class="category">${item.category}</span>
+                <h3 data-i18n="work.projects.${item.id}.title">${i18next.t(`work.projects.${item.id}.title`)}</h3>
+                <p data-i18n="work.projects.${item.id}.description">${i18next.t(`work.projects.${item.id}.description`)}</p>
+                <span class="category" data-i18n="work.projects.${item.id}.category">${i18next.t(`work.projects.${item.id}.category`)}</span>
             `;
             
             // Remove fade-out class and add fade-in class
@@ -229,8 +235,12 @@ document.addEventListener('DOMContentLoaded', () => {
             e.preventDefault();
             
             const submitBtn = form.querySelector('.submit-btn');
+            const btnText = submitBtn.querySelector('.btn-text');
             submitBtn.disabled = true;
-            submitBtn.innerHTML = '<span class="btn-text">Sending...</span><span class="btn-icon"><i class="fas fa-spinner fa-spin"></i></span>';
+            
+            // Save the button's original content
+            const originalContent = btnText.innerHTML;
+            btnText.textContent = i18next.t('contact.form.sending');
 
             try {
                 const mainEmailData = {
@@ -242,8 +252,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 
                 await emailjs.send('service_zps8h0i', 'template_8ht37op', mainEmailData);
                 
-                // Show custom notification
+                // Show custom notification in current language
                 const notification = document.getElementById('notification');
+                const notificationTitle = notification.querySelector('h4');
+                const notificationMessage = notification.querySelector('p');
+                
+                notificationTitle.textContent = i18next.t('contact.notification.success');
+                notificationMessage.textContent = i18next.t('contact.notification.message');
+                
                 notification.classList.add('show');
                 
                 // Hide notification after 5 seconds
@@ -254,11 +270,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 form.reset();
             } catch (error) {
                 console.error('Error:', error);
-                alert('Failed to send message. Please try again.');
+                alert(i18next.t('contact.notification.error', 'Failed to send message. Please try again.'));
             }
 
             submitBtn.disabled = false;
-            submitBtn.innerHTML = '<span class="btn-text">Send Message</span><span class="btn-icon"><i class="fas fa-paper-plane"></i></span>';
+            // Reset button text with translation
+            btnText.textContent = i18next.t('contact.form.submit');
         });
     }
 
@@ -584,4 +601,127 @@ function initScrollToTop() {
     
     // Initial check for scroll position
     handleScroll();
-} 
+}
+
+// Initialize i18next
+i18next
+    .use(i18nextHttpBackend)
+    .use(i18nextBrowserLanguageDetector)
+    .init({
+        fallbackLng: 'en',
+        debug: true,
+        backend: {
+            loadPath: '/translations/{{lng}}.json',
+        },
+        detection: {
+            order: ['querystring', 'cookie', 'localStorage', 'navigator'],
+            caches: ['localStorage', 'cookie'],
+        },
+    })
+    .then(function(t) {
+        updateContent();
+        updateLanguageButton();
+    });
+
+// Function to update all content with translations
+function updateContent() {
+    document.querySelectorAll('[data-i18n]').forEach(element => {
+        const key = element.getAttribute('data-i18n');
+        element.textContent = i18next.t(key);
+    });
+
+    // Update dynamic content
+    const heroIntro = document.querySelector('.hero-intro');
+    heroIntro.innerHTML = `
+        <span data-i18n="hero.greeting">${i18next.t('hero.greeting')}</span>
+        <span class="wave-emoji">👋</span>
+    `;
+
+    document.querySelector('.hero-title').innerHTML = `
+        <span class="curved-underline">
+            ${i18next.t('hero.title.part1')}
+            <svg width="160" height="30" class="curve" viewBox="0 0 160 30">
+                <path d="M10 20 Q80 10 150 20" stroke="#A7D8F3" stroke-width="2" fill="none"/>
+            </svg>
+        </span>
+        ${i18next.t('hero.title.part2')}<br>${i18next.t('hero.title.part3')}<br>${i18next.t('hero.title.part4')}
+    `;
+    
+    const heroSubtitle = document.querySelector('.hero-subtitle');
+    heroSubtitle.innerHTML = `
+        <p>${i18next.t('hero.subtitle.part1')}</p>
+        <p>${i18next.t('hero.subtitle.part2')}<br>${i18next.t('hero.subtitle.part3')}</p>
+    `;
+
+    // Update portfolio items
+    const portfolioItems = document.querySelectorAll('.portfolio-item');
+    portfolioItems.forEach(item => {
+        const title = item.querySelector('.project-title');
+        const description = item.querySelector('.project-description');
+        const category = item.querySelector('.category');
+        
+        if (title && title.dataset.i18n) {
+            title.textContent = i18next.t(title.dataset.i18n);
+        }
+        if (description && description.dataset.i18n) {
+            description.textContent = i18next.t(description.dataset.i18n);
+        }
+        if (category && category.dataset.i18n) {
+            category.textContent = i18next.t(category.dataset.i18n);
+        }
+    });
+
+    // Update section titles and badges
+    document.querySelectorAll('.section-badge').forEach(badge => {
+        if (badge.dataset.i18n) {
+            badge.textContent = i18next.t(badge.dataset.i18n);
+        }
+    });
+
+    document.querySelectorAll('.section-title').forEach(title => {
+        if (title.dataset.i18n) {
+            title.textContent = i18next.t(title.dataset.i18n);
+        }
+    });
+
+    document.querySelectorAll('.section-subtitle').forEach(subtitle => {
+        if (subtitle.dataset.i18n) {
+            subtitle.textContent = i18next.t(subtitle.dataset.i18n);
+        }
+    });
+
+    document.querySelector('.connect-button').textContent = i18next.t('hero.cta');
+}
+
+// Function to update the language toggle button
+function updateLanguageButton() {
+    const currentLang = i18next.language;
+    document.querySelector('.current-lang').textContent = currentLang.toUpperCase();
+}
+
+// Language toggle functionality
+document.addEventListener('DOMContentLoaded', () => {
+    const toggleMobile = document.getElementById('languageToggleMobile');
+    const toggleDesktop = document.getElementById('languageToggleDesktop');
+    
+    function updateLanguageButtons() {
+        const currentLang = i18next.language;
+        document.querySelectorAll('.current-lang').forEach(span => {
+            span.textContent = currentLang.toUpperCase();
+        });
+    }
+
+    function handleLanguageToggle() {
+        const currentLang = i18next.language;
+        const newLang = currentLang === 'en' ? 'fr' : 'en';
+        
+        i18next.changeLanguage(newLang, (err, t) => {
+            if (err) return console.error('Error changing language:', err);
+            updateContent();
+            updateLanguageButtons();
+        });
+    }
+
+    if (toggleMobile) toggleMobile.addEventListener('click', handleLanguageToggle);
+    if (toggleDesktop) toggleDesktop.addEventListener('click', handleLanguageToggle);
+}); 

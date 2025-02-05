@@ -14,6 +14,11 @@
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <!-- i18next scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/i18next/21.6.10/i18next.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/i18next-http-backend/1.3.1/i18nextHttpBackend.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-i18next/1.2.1/jquery-i18next.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/i18next-browser-languagedetector/6.1.3/i18nextBrowserLanguageDetector.min.js"></script>
 </head>
 <body>
     <div class="custom-cursor"></div>
@@ -26,6 +31,13 @@
                 <div class="logo-accent"></div>
             </a>
 
+            <div class="language-toggle d-lg-none me-3">
+                <button class="btn btn-link" id="languageToggleMobile">
+                    <i class="fas fa-globe"></i>
+                    <span class="current-lang">EN</span>
+                </button>
+            </div>
+
             <button class="navbar-toggler mobile-menu-btn" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span></span>
                 <span></span>
@@ -34,28 +46,37 @@
 
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav mx-auto nav-links">
-                    <li class="nav-item"><a class="nav-link active" href="#home">Home</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#work">Work</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#services">Services</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="#home" data-i18n="nav.home">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#about" data-i18n="nav.about">About</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#work" data-i18n="nav.work">Work</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#services" data-i18n="nav.services">Services</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#contact" data-i18n="nav.contact">Contact</a></li>
                 </ul>
 
-                <div class="contact-trigger d-none d-lg-block">
-                    <button class="contact-btn">
-                        <i class="fas fa-phone-alt"></i>
-                        <span>+233 59 607 7697</span>
-                        <i class="fas fa-chevron-down"></i>
-                    </button>
-                    <div class="contact-dropdown">
-                        <a href="tel:+233596077697" class="dropdown-item">
-                            <i class="fas fa-phone"></i>
-                            <span>Call Now</span>
-                        </a>
-                        <a href="https://wa.me/233596077697" class="dropdown-item whatsapp">
-                            <i class="fab fa-whatsapp"></i>
-                            <span>WhatsApp</span>
-                        </a>
+                <div class="d-flex align-items-center">
+                    <div class="language-toggle d-none d-lg-block me-3">
+                        <button class="btn btn-link" id="languageToggleDesktop">
+                            <i class="fas fa-globe"></i>
+                            <span class="current-lang">EN</span>
+                        </button>
+                    </div>
+
+                    <div class="contact-trigger d-none d-lg-block">
+                        <button class="contact-btn">
+                            <i class="fas fa-phone-alt"></i>
+                            <span>+233 59 607 7697</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <div class="contact-dropdown">
+                            <a href="tel:+233596077697" class="dropdown-item">
+                                <i class="fas fa-phone"></i>
+                                <span data-i18n="contact.info.callNow">Call Now</span>
+                            </a>
+                            <a href="https://wa.me/233596077697" class="dropdown-item whatsapp">
+                                <i class="fab fa-whatsapp"></i>
+                                <span>WhatsApp</span>
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -69,21 +90,27 @@
             <div class="avatar">
                 <img src="img/seyi.jpg" alt="Profile" class="avatar-image" loading="lazy">
             </div>
-            <div class="hero-intro">Hi, I'm Seyi <span class="wave-emoji">👋</span></div>
+            <div class="hero-intro">
+                <span data-i18n="hero.greeting">Hi, I'm Seyi</span>
+                <span class="wave-emoji">👋</span>
+            </div>
             <h1 class="hero-title">
                 <span class="curved-underline">
-                    Crafting
+                    <span data-i18n="hero.title.part1">Crafting</span>
                     <svg width="160" height="30" class="curve" viewBox="0 0 160 30">
                         <path d="M10 20 Q80 10 150 20" stroke="#A7D8F3" stroke-width="2" fill="none"/>
                     </svg>
                 </span>
-                digital excellence,<br>shaping brand<br>futures.
+                <span data-i18n="hero.title.part2">digital excellence,</span><br>
+                <span data-i18n="hero.title.part3">shaping brand</span><br>
+                <span data-i18n="hero.title.part4">futures.</span>
             </h1>
             <div class="hero-subtitle">
-                <p>a Product Designer and Visual Developer in Accra.</p>
-                <p>I specialize in UI/UX Design, Responsive Web Design,<br>and Visual Development.</p>
+                <p data-i18n="hero.subtitle.part1">a Product Designer and Visual Developer in Accra.</p>
+                <p><span data-i18n="hero.subtitle.part2">I specialize in UI/UX Design, Responsive Web Design,</span><br>
+                <span data-i18n="hero.subtitle.part3">and Visual Development.</span></p>
             </div>
-                <a href="#contact" class="btn connect-button">CONNECT WITH ME</a>
+                <a href="#contact" class="btn connect-button" data-i18n="hero.cta">CONNECT WITH ME</a>
             </div>
         </div>
     </section>
@@ -92,9 +119,9 @@
     <section id="about" class="about py-5">
         <div class="container">
             <div class="text-center mb-5 reveal">
-                <span class="section-badge">About Me</span>
-                <h2 class="section-title">Crafting Digital Excellence</h2>
-                <div class="section-subtitle">With over 5 years of experience in digital design and development</div>
+                <span class="section-badge" data-i18n="about.badge">About Me</span>
+                <h2 class="section-title" data-i18n="about.title">Crafting Digital Excellence</h2>
+                <div class="section-subtitle" data-i18n="about.subtitle">With over 5 years of experience in digital design and development</div>
             </div>
             
             <div class="row align-items-stretch">
@@ -105,8 +132,8 @@
                         <div class="image-shape"></div>
                         <div class="experience-badge">
                                 <div class="badge-content">
-                            <span class="years">5+</span>
-                            <span class="text">Years<br>Experience</span>
+                            <span class="years" data-i18n="about.experience.years">5+</span>
+                            <span class="text" data-i18n="about.experience.text">Years<br>Experience</span>
                                 </div>
                             </div>
                         </div>
@@ -122,8 +149,8 @@
                                     <div class="card-icon">
                             <i class="fas fa-paint-brush"></i>
                                     </div>
-                            <h3>Design</h3>
-                            <p>Creating visually stunning and intuitive user interfaces</p>
+                            <h3 data-i18n="about.cards.design.title">Design</h3>
+                            <p data-i18n="about.cards.design.description">Creating visually stunning and intuitive user interfaces</p>
                         </div>
                             </div>
                             <div class="col-md-4">
@@ -131,8 +158,8 @@
                                     <div class="card-icon">
                             <i class="fas fa-code"></i>
                                     </div>
-                            <h3>Development</h3>
-                            <p>Building robust and scalable web applications</p>
+                            <h3 data-i18n="about.cards.development.title">Development</h3>
+                            <p data-i18n="about.cards.development.description">Building robust and scalable web applications</p>
                         </div>
                             </div>
                             <div class="col-md-4">
@@ -140,32 +167,32 @@
                                     <div class="card-icon">
                             <i class="fas fa-bullseye"></i>
                                     </div>
-                            <h3>Strategy</h3>
-                            <p>Developing effective digital strategies and solutions</p>
+                            <h3 data-i18n="about.cards.strategy.title">Strategy</h3>
+                            <p data-i18n="about.cards.strategy.description">Developing effective digital strategies and solutions</p>
                                 </div>
                         </div>
                     </div>
                     
                         <div class="about-text">
-                    <p class="about-description">
+                    <p class="about-description" data-i18n="about.description">
                         I'm a passionate designer and developer dedicated to creating exceptional digital experiences. 
                         My approach combines creative design thinking with technical expertise to deliver solutions 
                         that not only look beautiful but also perform flawlessly.
                     </p>
                     
                             <div class="skills-section">
-                        <h3>Technical Expertise</h3>
+                        <h3 data-i18n="about.expertise.title">Technical Expertise</h3>
                         <div class="skill-tags">
-                            <span class="skill-tag">Web Development</span>
-                            <span class="skill-tag">React.js</span>
-                                    <span class="skill-tag">React Native</span>
-                                    <span class="skill-tag">Next.js</span>
-                            <span class="skill-tag">Node.js</span>
-                                    <span class="skill-tag">Expo</span>
-                                    <span class="skill-tag">Bootstrap</span>
-                            <span class="skill-tag">Adobe Creative Suite</span>
-                                </div>
-                            </div>
+                            <span class="skill-tag" data-i18n="about.expertise.skills.webdev">Web Development</span>
+                            <span class="skill-tag" data-i18n="about.expertise.skills.reactjs">React.js</span>
+                            <span class="skill-tag" data-i18n="about.expertise.skills.reactnative">React Native</span>
+                            <span class="skill-tag" data-i18n="about.expertise.skills.nextjs">Next.js</span>
+                            <span class="skill-tag" data-i18n="about.expertise.skills.nodejs">Node.js</span>
+                            <span class="skill-tag" data-i18n="about.expertise.skills.expo">Expo</span>
+                            <span class="skill-tag" data-i18n="about.expertise.skills.bootstrap">Bootstrap</span>
+                            <span class="skill-tag" data-i18n="about.expertise.skills.adobe">Adobe Creative Suite</span>
+                        </div>
+                    </div>
                         </div>
                     </div>
                 </div>
@@ -177,20 +204,30 @@
     <section id="work" class="work py-5">
         <div class="container">
             <div class="text-center mb-5 reveal">
-                <span class="section-badge">Portfolio</span>
-                <h2 class="section-title">Featured Projects</h2>
-                <div class="section-subtitle">Showcasing some of my best work</div>
+                <span class="section-badge" data-i18n="work.badge">Portfolio</span>
+                <h2 class="section-title" data-i18n="work.title">Featured Projects</h2>
+                <div class="section-subtitle" data-i18n="work.subtitle">Showcasing some of my best work</div>
             </div>
 
             <div class="portfolio-filters text-center mb-4 reveal reveal-delay-1">
-                <button class="filter-btn active" data-filter="all">All</button>
-                <button class="filter-btn" data-filter="web">Web Design</button>
-                <button class="filter-btn" data-filter="app">App Design</button>
-                <button class="filter-btn" data-filter="brand">Branding</button>
+                <button class="filter-btn active" data-filter="all" data-i18n="work.filters.all">All</button>
+                <button class="filter-btn" data-filter="web" data-i18n="work.filters.web">Web Design</button>
+                <button class="filter-btn" data-filter="app" data-i18n="work.filters.app">App Design</button>
+                <button class="filter-btn" data-filter="brand" data-i18n="work.filters.brand">Branding</button>
             </div>
 
             <div class="portfolio-grid row g-4 reveal reveal-delay-2">
-                <!-- Items will be inserted here by JavaScript -->
+                <div class="col-lg-4 col-md-6 portfolio-item" data-category="web">
+                    <div class="card">
+                        <img src="img/website.png" class="card-img-top" alt="E-commerce Platform">
+                        <div class="portfolio-info">
+                            <h3 data-i18n="work.projects.ecommerce.title">Modern E-commerce Platform</h3>
+                            <p data-i18n="work.projects.ecommerce.description">Full-stack development with React and Node.js</p>
+                            <span class="category" data-i18n="work.projects.ecommerce.category">Web Design</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- Add similar structure for other portfolio items -->
             </div>
         </div>
     </section>
@@ -199,9 +236,9 @@
     <section id="contact" class="contact py-5">
         <div class="container">
             <div class="text-center mb-5 reveal">
-                <span class="section-badge">Contact</span>
-                <h2 class="section-title">Let's Work Together</h2>
-                <div class="section-subtitle">Get in touch for collaborations or inquiries</div>
+                <span class="section-badge" data-i18n="contact.badge">Contact</span>
+                <h2 class="section-title" data-i18n="contact.title">Let's Work Together</h2>
+                <div class="section-subtitle" data-i18n="contact.subtitle">Get in touch for collaborations or inquiries</div>
             </div>
 
             <div class="row">
@@ -211,22 +248,22 @@
                             <div class="icon-circle">
                                 <i class="fas fa-phone"></i>
                             </div>
-                            <h3>Phone</h3>
+                            <h3 data-i18n="contact.info.phone">Phone</h3>
                             <a href="tel:+233596077697">+233 59 607 7697</a>
                         </div>
                         <div class="info-card" onclick="window.location.href='mailto:seyi_law@yahoo.com'">
                             <div class="icon-circle">
                                 <i class="fas fa-envelope"></i>
                             </div>
-                            <h3>Email</h3>
+                            <h3 data-i18n="contact.info.email">Email</h3>
                             <a href="mailto:seyi_law@yahoo.com">seyi_law@yahoo.com</a>
                         </div>
                         <div class="info-card">
                             <div class="icon-circle">
                                 <i class="fas fa-map-marker-alt"></i>
                             </div>
-                            <h3>Location</h3>
-                            <p>Accra, Ghana</p>
+                            <h3 data-i18n="contact.info.location.title">Location</h3>
+                            <p data-i18n="contact.info.location.value">Accra, Ghana</p>
                         </div>
                     </div>
                 </div>
@@ -236,30 +273,30 @@
                     <form id="contact-form" method="POST">
                             <div class="form-group mb-4">
                                 <input type="text" id="name" name="name" class="form-control" required>
-                            <label for="name">Your Name</label>
+                            <label for="name" data-i18n="contact.form.name">Your Name</label>
                             <span class="focus-border"></span>
                         </div>
 
                             <div class="form-group mb-4">
                                 <input type="email" id="email" name="email" class="form-control" required>
-                            <label for="email">Your Email</label>
+                            <label for="email" data-i18n="contact.form.email">Your Email</label>
                             <span class="focus-border"></span>
                         </div>
 
                             <div class="form-group mb-4">
                                 <input type="text" id="subject" name="subject" class="form-control" required>
-                            <label for="subject">Subject</label>
+                            <label for="subject" data-i18n="contact.form.subject">Subject</label>
                             <span class="focus-border"></span>
                         </div>
 
                             <div class="form-group mb-4">
                                 <textarea id="message" name="message" class="form-control" required></textarea>
-                            <label for="message">Your Message</label>
+                            <label for="message" data-i18n="contact.form.message">Your Message</label>
                             <span class="focus-border"></span>
                         </div>
 
                         <button type="submit" class="submit-btn">
-                            <span class="btn-text">Send Message</span>
+                            <span class="btn-text" data-i18n="contact.form.submit">Send Message</span>
                             <span class="btn-icon"><i class="fas fa-paper-plane"></i></span>
                         </button>
                     </form>
@@ -278,38 +315,38 @@
                         <span class="logo-text">Seyi Lawrence</span>
                         <span class="logo-dot">.</span>
                     </a>
-                    <p class="footer-description">
+                    <p class="footer-description" data-i18n="footer.description">
                         Crafting digital experiences through creative design and innovative solutions.
                     </p>
                 </div>
 
                 <div class="footer-links">
                     <div class="footer-column">
-                        <h4>Quick Links</h4>
+                        <h4 data-i18n="footer.quickLinks.title">Quick Links</h4>
                         <ul>
-                            <li><a href="#home">Home</a></li>
-                            <li><a href="#about">About</a></li>
-                            <li><a href="#work">Portfolio</a></li>
-                            <li><a href="#contact">Contact</a></li>
+                            <li><a href="#home" data-i18n="nav.home">Home</a></li>
+                            <li><a href="#about" data-i18n="nav.about">About</a></li>
+                            <li><a href="#work" data-i18n="nav.work">Portfolio</a></li>
+                            <li><a href="#contact" data-i18n="nav.contact">Contact</a></li>
                         </ul>
                     </div>
 
                     <div class="footer-column">
-                        <h4>Services</h4>
+                        <h4 data-i18n="footer.services.title">Services</h4>
                         <ul>
-                            <li><a href="#services">Web Design</a></li>
-                            <li><a href="#services">UI/UX Design</a></li>
-                            <li><a href="#services">Brand Identity</a></li>
-                            <li><a href="#services">Development</a></li>
+                            <li><a href="#services" data-i18n="footer.services.web">Web Design</a></li>
+                            <li><a href="#services" data-i18n="footer.services.uiux">UI/UX Design</a></li>
+                            <li><a href="#services" data-i18n="footer.services.brand">Brand Identity</a></li>
+                            <li><a href="#services" data-i18n="footer.services.dev">Development</a></li>
                         </ul>
                     </div>
 
                     <div class="footer-column">
-                        <h4>Contact</h4>
+                        <h4 data-i18n="footer.contact.title">Contact</h4>
                         <ul>
                             <li>
                                 <i class="fas fa-map-marker-alt"></i>
-                                <span>Accra, Ghana</span>
+                                <span data-i18n="contact.info.location.value">Accra, Ghana</span>
                             </li>
                             <li>
                                 <i class="fas fa-phone"></i>
@@ -327,7 +364,7 @@
             <div class="footer-divider"></div>
 
             <div class="footer-bottom">
-                <p class="copyright">© 2024 Seyi Lawrence. All rights reserved.</p>
+                <p class="copyright" data-i18n="footer.copyright">© 2024 Seyi Lawrence. All rights reserved.</p>
             </div>
         </div>
     </footer>
@@ -343,8 +380,8 @@
                 <i class="fas fa-check-circle"></i>
             </div>
             <div class="notification-text">
-                <h4>Success!</h4>
-                <p>Your message has been sent successfully</p>
+                <h4 data-i18n="contact.notification.success">Success!</h4>
+                <p data-i18n="contact.notification.message">Your message has been sent successfully</p>
             </div>
         </div>
         <button class="notification-close" onclick="closeNotification()">
