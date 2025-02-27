@@ -1,0 +1,148 @@
+{
+  "nav": {
+    "home": "Home",
+    "about": "About",
+    "work": "Work",
+    "services": "Services",
+    "contact": "Contact"
+  },
+  "hero": {
+    "greeting": "Hi, I'm Seyi",
+    "title": {
+      "part1": "Crafting",
+      "part2": "digital excellence,",
+      "part3": "shaping brand",
+      "part4": "futures."
+    },
+    "subtitle": {
+      "part1": "a Product Designer and Visual Developer in Accra.",
+      "part2": "I specialize in UI/UX Design, Responsive Web Design,",
+      "part3": "and Visual Development."
+    },
+    "cta": "CONNECT WITH ME"
+  },
+  "about": {
+    "badge": "About Me",
+    "title": "Crafting Digital Excellence",
+    "subtitle": "With over 5 years of experience in digital design and development",
+    "experience": {
+      "years": "5+",
+      "text": "Years Experience"
+    },
+    "cards": {
+      "design": {
+        "title": "Design",
+        "description": "Creating visually stunning and intuitive user interfaces"
+      },
+      "development": {
+        "title": "Development",
+        "description": "Building robust and scalable web applications"
+      },
+      "strategy": {
+        "title": "Strategy",
+        "description": "Developing effective digital strategies and solutions"
+      }
+    },
+    "description": "I'm a passionate designer and developer dedicated to creating exceptional digital experiences. My approach combines creative design thinking with technical expertise to deliver solutions that not only look beautiful but also perform flawlessly.",
+    "expertise": {
+      "title": "Technical Expertise",
+      "skills": {
+        "webdev": "Web Development",
+        "reactjs": "React.js",
+        "reactnative": "React Native",
+        "nextjs": "Next.js",
+        "nodejs": "Node.js",
+        "expo": "Expo",
+        "bootstrap": "Bootstrap",
+        "adobe": "Adobe Creative Suite"
+      }
+    }
+  },
+  "work": {
+    "badge": "Portfolio",
+    "title": "Featured Projects",
+    "subtitle": "Showcasing some of my best work",
+    "filters": {
+      "all": "All",
+      "web": "Web Design",
+      "app": "App Design",
+      "brand": "Branding"
+    },
+    "projects": {
+      "ecommerce": {
+        "title": "Modern E-commerce Platform",
+        "description": "Full-stack development with React and Node.js",
+        "category": "Web Design"
+      },
+      "avarhh": {
+        "title": "Avarhh Brand Identity",
+        "description": "Complete brand identity and visual guidelines",
+        "category": "Brand Design"
+      },
+      "remerciements": {
+        "title": "Remerciements Campaign",
+        "description": "Visual design and marketing materials",
+        "category": "Graphic Design"
+      },
+      "nouvelle": {
+        "title": "Nouvelle Collection",
+        "description": "Fashion brand identity and packaging",
+        "category": "Brand Design"
+      },
+      "exotic": {
+        "title": "Exotic Shawarma",
+        "description": "Restaurant branding and menu design",
+        "category": "Brand Design"
+      },
+      "goal": {
+        "title": "Goal Setting App",
+        "description": "Mobile app interface and user experience",
+        "category": "UI/UX Design"
+      }
+    }
+  },
+  "contact": {
+    "badge": "Contact",
+    "title": "Let's Work Together",
+    "subtitle": "Get in touch for collaborations or inquiries",
+    "info": {
+      "phone": "Phone",
+      "email": "Email",
+      "callNow": "Call Now",
+      "whatsapp": "WhatsApp",
+      "location": {
+        "title": "Location",
+        "value": "Accra, Ghana"
+      }
+    },
+    "form": {
+      "name": "Your Name",
+      "email": "Your Email",
+      "subject": "Subject",
+      "message": "Your Message",
+      "submit": "Send Message",
+      "sending": "Sending..."
+    },
+    "notification": {
+      "success": "Success!",
+      "message": "Your message has been sent successfully"
+    }
+  },
+  "footer": {
+    "description": "Crafting digital experiences through creative design and innovative solutions.",
+    "quickLinks": {
+      "title": "Quick Links"
+    },
+    "services": {
+      "title": "Services",
+      "web": "Web Design",
+      "uiux": "UI/UX Design",
+      "brand": "Brand Identity",
+      "dev": "Development"
+    },
+    "contact": {
+      "title": "Contact"
+    },
+    "copyright": "© 2024 Seyi Lawrence. All rights reserved."
+  }
+} 

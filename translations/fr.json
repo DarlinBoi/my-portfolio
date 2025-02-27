@@ -1,0 +1,148 @@
+{
+  "nav": {
+    "home": "Accueil",
+    "about": "À propos",
+    "work": "Travaux",
+    "services": "Services",
+    "contact": "Contact"
+  },
+  "hero": {
+    "greeting": "Bonjour, je suis Seyi",
+    "title": {
+      "part1": "Création",
+      "part2": "d'excellence numérique,",
+      "part3": "façonnant l'avenir",
+      "part4": "des marques."
+    },
+    "subtitle": {
+      "part1": "un Designer de Produits et Développeur Visuel à Accra.",
+      "part2": "Je suis spécialisé dans le Design UI/UX, le Design Web Responsive,",
+      "part3": "et le Développement Visuel."
+    },
+    "cta": "ME CONTACTER"
+  },
+  "about": {
+    "badge": "À Propos de Moi",
+    "title": "Création d'Excellence Numérique",
+    "subtitle": "Avec plus de 5 ans d'expérience en design et développement numérique",
+    "experience": {
+      "years": "5+",
+      "text": "Ans d'Expérience"
+    },
+    "cards": {
+      "design": {
+        "title": "Design",
+        "description": "Création d'interfaces utilisateur visuellement impressionnantes et intuitives"
+      },
+      "development": {
+        "title": "Développement",
+        "description": "Construction d'applications web robustes et évolutives"
+      },
+      "strategy": {
+        "title": "Stratégie",
+        "description": "Développement de stratégies et solutions numériques efficaces"
+      }
+    },
+    "description": "Je suis un designer et développeur passionné, dédié à la création d'expériences numériques exceptionnelles. Mon approche combine la pensée créative du design avec l'expertise technique pour offrir des solutions non seulement belles mais aussi parfaitement fonctionnelles.",
+    "expertise": {
+      "title": "Expertise Technique",
+      "skills": {
+        "webdev": "Développement Web",
+        "reactjs": "React.js",
+        "reactnative": "React Native",
+        "nextjs": "Next.js",
+        "nodejs": "Node.js",
+        "expo": "Expo",
+        "bootstrap": "Bootstrap",
+        "adobe": "Adobe Creative Suite"
+      }
+    }
+  },
+  "work": {
+    "badge": "Portfolio",
+    "title": "Projets en Vedette",
+    "subtitle": "Présentation de mes meilleurs travaux",
+    "filters": {
+      "all": "Tout",
+      "web": "Design Web",
+      "app": "Design d'Applications",
+      "brand": "Image de Marque"
+    },
+    "projects": {
+      "ecommerce": {
+        "title": "Plateforme E-commerce Moderne",
+        "description": "Développement full-stack avec React et Node.js",
+        "category": "Design Web"
+      },
+      "avarhh": {
+        "title": "Identité de Marque Avarhh",
+        "description": "Identité de marque complète et directives visuelles",
+        "category": "Design de Marque"
+      },
+      "remerciements": {
+        "title": "Campagne Remerciements",
+        "description": "Design visuel et supports marketing",
+        "category": "Design Graphique"
+      },
+      "nouvelle": {
+        "title": "Collection Nouvelle",
+        "description": "Identité de marque et emballage de mode",
+        "category": "Design de Marque"
+      },
+      "exotic": {
+        "title": "Exotic Shawarma",
+        "description": "Image de marque de restaurant et design de menu",
+        "category": "Design de Marque"
+      },
+      "goal": {
+        "title": "Application de Définition d'Objectifs",
+        "description": "Interface mobile et expérience utilisateur",
+        "category": "Design UI/UX"
+      }
+    }
+  },
+  "contact": {
+    "badge": "Contact",
+    "title": "Travaillons Ensemble",
+    "subtitle": "Contactez-moi pour des collaborations ou des renseignements",
+    "info": {
+      "phone": "Téléphone",
+      "email": "Email",
+      "callNow": "Appeler Maintenant",
+      "whatsapp": "WhatsApp",
+      "location": {
+        "title": "Emplacement",
+        "value": "Accra, Ghana"
+      }
+    },
+    "form": {
+      "name": "Votre Nom",
+      "email": "Votre Email",
+      "subject": "Sujet",
+      "message": "Votre Message",
+      "submit": "Envoyer le Message",
+      "sending": "Envoi en cours..."
+    },
+    "notification": {
+      "success": "Succès !",
+      "message": "Votre message a été envoyé avec succès"
+    }
+  },
+  "footer": {
+    "description": "Création d'expériences numériques à travers le design créatif et les solutions innovantes.",
+    "quickLinks": {
+      "title": "Liens Rapides"
+    },
+    "services": {
+      "title": "Services",
+      "web": "Design Web",
+      "uiux": "Design UI/UX",
+      "brand": "Identité de Marque",
+      "dev": "Développement"
+    },
+    "contact": {
+      "title": "Contact"
+    },
+    "copyright": "© 2024 Seyi Lawrence. Tous droits réservés."
+  }
+} 
