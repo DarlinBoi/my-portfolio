@@ -330,6 +330,7 @@ body {
     width: 450px;
     height: 450px;
     margin: 0 auto;
+    transition: transform 0.5s ease;
 }
 
 .about-image {
@@ -338,19 +339,13 @@ body {
     height: 100%;
     border-radius: 50%;
     overflow: hidden;
-    border: 4px solid #fff;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+    border: 4px solid var(--secondary);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    transition: all 0.5s ease;
 }
 
 .about-image::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 30%;
-    background: linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(255, 255, 255, 1));
-    pointer-events: none;
+    display: none;
 }
 
 .main-image {
@@ -370,21 +365,28 @@ body {
     height: 100%;
     top: 20px;
     left: 20px;
-    background: rgba(0, 0, 0, 0.03);
-    border-radius: 30px;
+    background: var(--secondary);
+    border-radius: 50%;
     z-index: -1;
+    opacity: 0.3;
     transition: all 0.3s ease;
 }
 
+.about-image:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 30px 50px rgba(0, 0, 0, 0.15);
+}
+
 .about-image:hover .image-shape {
-    transform: translate(5px, 5px);
+    transform: translate(10px, 10px);
+    opacity: 0.5;
 }
 
 .about-pattern {
     position: absolute;
     width: 200px;
     height: 200px;
-    background-image: radial-gradient(rgba(0, 0, 0, 0.1) 2px, transparent 2px);
+    background-image: radial-gradient(var(--secondary) 2px, transparent 2px);
     background-size: 20px 20px;
     opacity: 0.1;
     top: -30px;
@@ -405,42 +407,9 @@ body {
     }
 }
 
+/* Remove experience badge styles */
 .experience-badge {
-    position: absolute;
-    bottom: 30px;
-    right: 0;
-    background: rgba(255, 255, 255, 0.98);
-    padding: 0;
-    border-radius: 20px;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
-    z-index: 3;
-    transition: all 0.4s cubic-bezier(0.17, 0.55, 0.55, 1);
-}
-
-.badge-content {
-    padding: 1.5rem;
-    position: relative;
-    z-index: 1;
-}
-
-.experience-badge:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
-}
-
-.experience-badge .years {
-    font-size: 2.5rem;
-    font-weight: 700;
-    color: #007bff;
-    display: block;
-    line-height: 1;
-}
-
-.experience-badge .text {
-    font-size: 0.9rem;
-    color: #666;
-    margin-top: 0.5rem;
-    display: block;
+    display: none;
 }
 
 .about-content {
@@ -590,22 +559,15 @@ body {
 
 @media (max-width: 1200px) {
     .about-image-wrapper {
-        min-height: 450px;
-    }
-
-    .main-image {
-        max-height: 500px;
+        width: 400px;
+        height: 400px;
     }
 }
 
 @media (max-width: 992px) {
     .about-image-wrapper {
-        width: 400px;
-        height: 400px;
-    }
-    
-    .main-image {
-        max-height: 450px;
+        width: 350px;
+        height: 350px;
     }
     
     .about-content {
@@ -622,27 +584,6 @@ body {
         width: 300px;
         height: 300px;
         margin-bottom: 2rem;
-    }
-    
-    .main-image {
-        max-height: 400px;
-    }
-    
-    .about-card {
-        padding: 1.5rem 1rem;
-    }
-    
-    .about-cards {
-        margin-bottom: 1.5rem;
-    }
-
-    .experience-badge {
-        right: -10px;
-        bottom: 20px;
-    }
-
-    .about-image::after {
-        height: 40%;
     }
 }
 
