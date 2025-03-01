@@ -12,7 +12,7 @@ const portfolioItems = [
         title: 'Avarhh Brand Identity',
         category: 'Brand Design',
         description: 'Complete brand identity and visual guidelines',
-        image: 'img/avarhh.jpg'
+        image: 'img/Avarhh.jpg'
     },
     {
         id: 'flc',
@@ -21,6 +21,14 @@ const portfolioItems = [
         description: 'A modern, responsive website built with React, TypeScript, and Tailwind CSS',
         image: 'img/flc-website.png',
         link: 'https://firstlovecenter.com/'
+    },
+    {
+        id: 'beecee',
+        title: 'BeeCee Skincare Brochure',
+        category: 'Brand Design',
+        description: 'Elegant product brochure design showcasing luxury skincare line with sophisticated layout and premium visual aesthetics',
+        image: 'img/Body.png',
+        detailImage: 'img/Inner.png'
     },
     {
         id: 'remerciements',
@@ -89,10 +97,10 @@ function openLightbox(currentIndex) {
             <button class="lightbox-close">
                 <i class="fas fa-times"></i>
             </button>
-            <button class="lightbox-nav prev">
+            <button class="lightbox-nav prev desktop-only">
                 <i class="fas fa-chevron-left"></i>
             </button>
-            <button class="lightbox-nav next">
+            <button class="lightbox-nav next desktop-only">
                 <i class="fas fa-chevron-right"></i>
             </button>
             <div class="lightbox-image-container">
@@ -127,12 +135,13 @@ function openLightbox(currentIndex) {
         const imgContainer = lightbox.querySelector('.lightbox-image-container');
         const textContainer = lightbox.querySelector('.lightbox-text');
         
-        // Add fade-out class
         imgContainer.classList.add('fade-out');
         textContainer.classList.add('fade-out');
         
         setTimeout(() => {
-            imgContainer.innerHTML = `<img src="${item.image}" alt="${i18next.t(`work.projects.${item.id}.title`)}">`;
+            // Use detailImage in lightbox if available, otherwise use regular image
+            const displayImage = item.detailImage || item.image;
+            imgContainer.innerHTML = `<img src="${displayImage}" alt="${i18next.t(`work.projects.${item.id}.title`)}">`;
             textContainer.innerHTML = `
                 <h3 data-i18n="work.projects.${item.id}.title">${i18next.t(`work.projects.${item.id}.title`)}</h3>
                 <p data-i18n="work.projects.${item.id}.description">${i18next.t(`work.projects.${item.id}.description`)}</p>
@@ -140,13 +149,11 @@ function openLightbox(currentIndex) {
                 ${item.link ? `<a href="${item.link}" class="project-link" target="_blank" rel="noopener noreferrer">Visit Website <i class="fas fa-external-link-alt"></i></a>` : ''}
             `;
             
-            // Remove fade-out class and add fade-in class
             imgContainer.classList.remove('fade-out');
             textContainer.classList.remove('fade-out');
             imgContainer.classList.add('fade-in');
             textContainer.classList.add('fade-in');
             
-            // Remove fade-in class after animation
             setTimeout(() => {
                 imgContainer.classList.remove('fade-in');
                 textContainer.classList.remove('fade-in');
@@ -154,11 +161,6 @@ function openLightbox(currentIndex) {
         }, 300);
     }
 
-    // Event Listeners
-    lightbox.querySelector('.lightbox-close').addEventListener('click', closeLightbox);
-    lightbox.querySelector('.prev').addEventListener('click', showPrevImage);
-    lightbox.querySelector('.next').addEventListener('click', showNextImage);
-    
     // Close lightbox when clicking outside
     lightbox.addEventListener('click', (e) => {
         if (e.target === lightbox) {
@@ -166,22 +168,31 @@ function openLightbox(currentIndex) {
         }
     });
     
+    // Event Listeners for navigation
+    const prevButton = lightbox.querySelector('.prev');
+    const nextButton = lightbox.querySelector('.next');
+    if (prevButton) prevButton.addEventListener('click', showPrevImage);
+    if (nextButton) nextButton.addEventListener('click', showNextImage);
+
     // Keyboard navigation
     document.addEventListener('keydown', handleKeyPress);
     
     function handleKeyPress(e) {
         switch(e.key) {
             case 'ArrowLeft':
-                showPrevImage();
+                if (window.innerWidth > 768) showPrevImage();
                 break;
             case 'ArrowRight':
-                showNextImage();
+                if (window.innerWidth > 768) showNextImage();
                 break;
             case 'Escape':
                 closeLightbox();
                 break;
         }
     }
+
+    // Add event listener for close button
+    lightbox.querySelector('.lightbox-close').addEventListener('click', closeLightbox);
     
     function closeLightbox() {
         document.body.style.overflow = '';
@@ -191,7 +202,7 @@ function openLightbox(currentIndex) {
             document.body.removeChild(lightbox);
             document.removeEventListener('keydown', handleKeyPress);
         }, 300);
-        }
+    }
 }
 
 // Mobile Navigation
