@@ -1376,6 +1376,30 @@ textarea.form-control {
     color: var(--secondary);
 }
 
+.lightbox-text .project-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 1rem;
+    padding: 0.6rem 1.2rem;
+    background: var(--secondary);
+    color: var(--primary);
+    text-decoration: none;
+    border-radius: 50px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.lightbox-text .project-link:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(167, 216, 243, 0.3);
+}
+
+.lightbox-text .project-link i {
+    font-size: 0.8rem;
+}
+
 .lightbox-close {
     position: absolute;
     top: 15px;

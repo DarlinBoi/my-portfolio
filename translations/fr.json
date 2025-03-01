@@ -98,6 +98,11 @@
         "title": "Application de Définition d'Objectifs",
         "description": "Interface mobile et expérience utilisateur",
         "category": "Design UI/UX"
+      },
+      "flc": {
+        "title": "Site Web First Love Church",
+        "description": "Un site web moderne et réactif construit avec React, TypeScript et Tailwind CSS",
+        "category": "Design Web"
       }
     }
   },

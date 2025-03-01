@@ -15,6 +15,14 @@ const portfolioItems = [
         image: 'img/avarhh.jpg'
     },
     {
+        id: 'flc',
+        title: 'First Love Church Website',
+        category: 'Web Design',
+        description: 'A modern, responsive website built with React, TypeScript, and Tailwind CSS',
+        image: 'img/flc-website.png',
+        link: 'https://firstlovecenter.com/'
+    },
+    {
         id: 'remerciements',
         title: 'Remerciements Campaign',
         category: 'Graphic Design',
@@ -22,11 +30,11 @@ const portfolioItems = [
         image: 'img/Remerciements.jpg'
     },
     {
-        id: 'nouvelle',
-        title: 'Nouvelle Collection',
-        category: 'Brand Design',
-        description: 'Fashion brand identity and packaging',
-        image: 'img/Nouvelle 2.jpg'
+        id: 'goal',
+        title: 'Goal Setting App',
+        category: 'UI/UX Design',
+        description: 'Mobile app interface and user experience',
+        image: 'img/Goal Setting.jpg'
     },
     {
         id: 'exotic',
@@ -36,11 +44,11 @@ const portfolioItems = [
         image: 'img/Exotic Sharwarma.jpg'
     },
     {
-        id: 'goal',
-        title: 'Goal Setting App',
-        category: 'UI/UX Design',
-        description: 'Mobile app interface and user experience',
-        image: 'img/Goal Setting.jpg'
+        id: 'nouvelle',
+        title: 'Nouvelle Collection',
+        category: 'Brand Design',
+        description: 'Fashion brand identity and packaging',
+        image: 'img/Nouvelle 2.jpg'
     }
 ];
 
@@ -94,6 +102,7 @@ function openLightbox(currentIndex) {
                 <h3 data-i18n="work.projects.${item.id}.title">${i18next.t(`work.projects.${item.id}.title`)}</h3>
                 <p data-i18n="work.projects.${item.id}.description">${i18next.t(`work.projects.${item.id}.description`)}</p>
                 <span class="category" data-i18n="work.projects.${item.id}.category">${i18next.t(`work.projects.${item.id}.category`)}</span>
+                ${item.link ? `<a href="${item.link}" class="project-link" target="_blank" rel="noopener noreferrer">Visit Website <i class="fas fa-external-link-alt"></i></a>` : ''}
             </div>
         </div>
     `;
@@ -128,6 +137,7 @@ function openLightbox(currentIndex) {
                 <h3 data-i18n="work.projects.${item.id}.title">${i18next.t(`work.projects.${item.id}.title`)}</h3>
                 <p data-i18n="work.projects.${item.id}.description">${i18next.t(`work.projects.${item.id}.description`)}</p>
                 <span class="category" data-i18n="work.projects.${item.id}.category">${i18next.t(`work.projects.${item.id}.category`)}</span>
+                ${item.link ? `<a href="${item.link}" class="project-link" target="_blank" rel="noopener noreferrer">Visit Website <i class="fas fa-external-link-alt"></i></a>` : ''}
             `;
             
             // Remove fade-out class and add fade-in class

@@ -98,6 +98,11 @@
         "title": "Goal Setting App",
         "description": "Mobile app interface and user experience",
         "category": "UI/UX Design"
+      },
+      "flc": {
+        "title": "First Love Church Website",
+        "description": "A modern, responsive website built with React, TypeScript, and Tailwind CSS",
+        "category": "Web Design"
       }
     }
   },
