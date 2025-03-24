@@ -79,6 +79,11 @@
         "description": "Complete brand identity and visual guidelines",
         "category": "Brand Design"
       },
+      "grillhouse": {
+        "title": "Grill House Ghana",
+        "description": "A modern React restaurant site. Built with React, TypeScript, Tailwind CSS, and Framer Motion.",
+        "category": "Web Design"
+      },
       "beecee": {
         "title": "BeeCee Skincare Brochure",
         "description": "Elegant product brochure design showcasing luxury skincare line with sophisticated layout and premium visual aesthetics",
@@ -105,7 +110,7 @@
         "category": "UI/UX Design"
       },
       "flc": {
-        "title": "First Love Church Website",
+        "title": "First Love Church",
         "description": "A modern, responsive website built with React, TypeScript, and Tailwind CSS",
         "category": "Web Design"
       }
@@ -153,6 +158,6 @@
     "contact": {
       "title": "Contact"
     },
-    "copyright": "© 2024 Seyi Lawrence. All rights reserved."
+    "copyright": "© 2025 Seyi Lawrence. All rights reserved."
   }
 } 

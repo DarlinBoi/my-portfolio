@@ -5,58 +5,66 @@ const portfolioItems = [
         title: 'Modern E-commerce Platform',
         category: 'Web Design',
         description: 'Full-stack development with React and Node.js',
-        image: 'img/website.png'
+        image: 'img/website.webp'
     },
     {
         id: 'avarhh',
         title: 'Avarhh Brand Identity',
         category: 'Brand Design',
         description: 'Complete brand identity and visual guidelines',
-        image: 'img/Avarhh.jpg'
+        image: 'img/Avarhh.webp'
     },
     {
         id: 'flc',
-        title: 'First Love Church Website',
+        title: 'First Love Church',
         category: 'Web Design',
         description: 'A modern, responsive website built with React, TypeScript, and Tailwind CSS',
-        image: 'img/flc-website.png',
+        image: 'img/flc-website.webp',
         link: 'https://firstlovecenter.com/'
+    },
+    {
+        id: 'grillhouse',
+        title: 'Grill House Ghana',
+        category: 'Web Design',
+        description: 'A modern React restaurant site. Built with React, TypeScript, Tailwind CSS, and Framer Motion.',
+        image: 'img/grill-house.webp',
+        link: 'https://grillhousegh.com/'
     },
     {
         id: 'beecee',
         title: 'BeeCee Skincare Brochure',
         category: 'Brand Design',
         description: 'Elegant product brochure design showcasing luxury skincare line with sophisticated layout and premium visual aesthetics',
-        image: 'img/Body.png',
-        detailImage: 'img/Inner.png'
+        image: 'img/Body.webp',
+        detailImage: 'img/Inner.webp'
     },
     {
         id: 'remerciements',
         title: 'Remerciements Campaign',
         category: 'Graphic Design',
         description: 'Visual design and marketing materials',
-        image: 'img/Remerciements.jpg'
+        image: 'img/Remerciements.webp'
     },
     {
         id: 'goal',
         title: 'Goal Setting App',
         category: 'UI/UX Design',
         description: 'Mobile app interface and user experience',
-        image: 'img/Goal Setting.jpg'
+        image: 'img/Goal Setting.webp'
     },
     {
         id: 'exotic',
         title: 'Exotic Shawarma',
         category: 'Brand Design',
         description: 'Restaurant branding and menu design',
-        image: 'img/Exotic Sharwarma.jpg'
+        image: 'img/Exotic Sharwarma.webp'
     },
     {
         id: 'nouvelle',
         title: 'Nouvelle Collection',
         category: 'Brand Design',
         description: 'Fashion brand identity and packaging',
-        image: 'img/Nouvelle 2.jpg'
+        image: 'img/Nouvelle 2.webp'
     }
 ];
 

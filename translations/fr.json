@@ -79,6 +79,11 @@
         "description": "Identité de marque complète et directives visuelles",
         "category": "Design de Marque"
       },
+      "grillhouse": {
+        "title": "Site Web Grill House Ghana",
+        "description": "Un site web de restaurant moderne basé sur React avec une section d'accueil animée, un menu interactif et un système de commande fluide. Développé avec TypeScript, Tailwind CSS et Framer Motion",
+        "category": "Design Web"
+      },
       "beecee": {
         "title": "Brochure BeeCee Skincare",
         "description": "Design élégant de brochure de produits mettant en valeur une gamme de soins de la peau luxueuse avec une mise en page sophistiquée et une esthétique premium",
@@ -153,6 +158,6 @@
     "contact": {
       "title": "Contact"
     },
-    "copyright": "© 2024 Seyi Lawrence. Tous droits réservés."
+    "copyright": "© 2025 Seyi Lawrence. Tous droits réservés."
   }
 } 
