@@ -2,9 +2,9 @@
 const portfolioItems = [
     {
         id: 'ecommerce',
-        title: 'Modern E-commerce Platform',
+        title: 'The Waker: Dr BeeCee Ugboh',
         category: 'Web Design',
-        description: 'Full-stack development with React and Node.js',
+        description: 'Life Coach website built using HTML and CSS',
         image: 'img/website.webp'
     },
     {
@@ -640,7 +640,7 @@ i18next
         fallbackLng: 'en',
         debug: true,
         backend: {
-            loadPath: '/translations/{{lng}}.json',
+            loadPath: 'translations/{{lng}}.json',
         },
         detection: {
             order: ['querystring', 'cookie', 'localStorage', 'navigator'],

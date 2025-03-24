@@ -3,7 +3,6 @@
     "home": "Accueil",
     "about": "À propos",
     "work": "Travaux",
-    "services": "Services",
     "contact": "Contact"
   },
   "hero": {
@@ -70,8 +69,8 @@
     },
     "projects": {
       "ecommerce": {
-        "title": "Plateforme E-commerce Moderne",
-        "description": "Développement full-stack avec React et Node.js",
+        "title": "The Waker: Dr BeeCee Ugboh",
+        "description": "Site web de Coach de Vie construit avec HTML et CSS",
         "category": "Design Web"
       },
       "avarhh": {
