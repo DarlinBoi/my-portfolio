@@ -14,9 +14,7 @@
       "part4": "des marques."
     },
     "subtitle": {
-      "part1": "un Designer de Produits et Développeur Visuel à Accra.",
-      "part2": "Je suis spécialisé dans le Design UI/UX, le Design Web Responsive,",
-      "part3": "et le Développement Visuel."
+      "part1": "équilibrant esthétique et fonctionnalité, je crée des interfaces dynamiques qui donnent la priorité à l'utilisabilité et à l'identité de marque, des maquettes au déploiement."
     },
     "cta": "ME CONTACTER"
   },
@@ -65,7 +63,7 @@
       "all": "Tout",
       "web": "Design Web",
       "app": "Design d'Applications",
-      "brand": "Image de Marque"
+      "graphic": "Design Graphique"
     },
     "projects": {
       "ecommerce": {
@@ -74,9 +72,9 @@
         "category": "Design Web"
       },
       "avarhh": {
-        "title": "Identité de Marque Avarhh",
-        "description": "Identité de marque complète et directives visuelles",
-        "category": "Design de Marque"
+        "title": "Service de Change Avarhh Exchange",
+        "description": "Identité de marque pour service de change de devises spécialisé dans les monnaies d'Afrique de l'Ouest et Centrale (Naira, Cedis, CFA)",
+        "category": "Design Graphique"
       },
       "grillhouse": {
         "title": "Site Web Grill House Ghana",
@@ -86,27 +84,27 @@
       "beecee": {
         "title": "Brochure BeeCee Skincare",
         "description": "Design élégant de brochure de produits mettant en valeur une gamme de soins de la peau luxueuse avec une mise en page sophistiquée et une esthétique premium",
-        "category": "Design de Marque"
+        "category": "Design Graphique"
       },
       "remerciements": {
-        "title": "Campagne Remerciements",
-        "description": "Design visuel et supports marketing",
+        "title": "Carte de Remerciements Mariage Lionel & Tatiana",
+        "description": "Design élégant de carte de remerciements de mariage avec accents géométriques dorés et éléments d'eucalyptus",
         "category": "Design Graphique"
       },
       "nouvelle": {
         "title": "Collection Nouvelle",
         "description": "Identité de marque et emballage de mode",
-        "category": "Design de Marque"
+        "category": "Design Graphique"
       },
       "exotic": {
         "title": "Exotic Shawarma",
         "description": "Image de marque de restaurant et design de menu",
-        "category": "Design de Marque"
+        "category": "Design Graphique"
       },
       "goal": {
-        "title": "Application de Définition d'Objectifs",
-        "description": "Interface mobile et expérience utilisateur",
-        "category": "Design UI/UX"
+        "title": "Design d'Affiche pour Définition d'Objectifs",
+        "description": "Conception d'affiche pour un atelier de définition d'objectifs",
+        "category": "Design Graphique"
       },
       "flc": {
         "title": "Site Web First Love Church",
@@ -144,6 +142,12 @@
   },
   "footer": {
     "description": "Création d'expériences numériques à travers le design créatif et les solutions innovantes.",
+    "social": {
+      "twitter": "Suivez sur Twitter",
+      "linkedin": "Connectez sur LinkedIn",
+      "github": "Voir les projets GitHub",
+      "dribbble": "Voir les designs Dribbble"
+    },
     "quickLinks": {
       "title": "Liens Rapides"
     },

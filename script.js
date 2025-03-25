@@ -9,9 +9,9 @@ const portfolioItems = [
     },
     {
         id: 'avarhh',
-        title: 'Avarhh Brand Identity',
-        category: 'Brand Design',
-        description: 'Complete brand identity and visual guidelines',
+        title: 'Avarhh Exchange Currency Service',
+        category: 'Graphic Design',
+        description: 'Currency exchange brand identity with focus on West and Central African currencies (Naira, Cedis, CFA)',
         image: 'img/Avarhh.webp'
     },
     {
@@ -33,40 +33,147 @@ const portfolioItems = [
     {
         id: 'beecee',
         title: 'BeeCee Skincare Brochure',
-        category: 'Brand Design',
+        category: 'Graphic Design',
         description: 'Elegant product brochure design showcasing luxury skincare line with sophisticated layout and premium visual aesthetics',
         image: 'img/Body.webp',
         detailImage: 'img/Inner.webp'
     },
     {
         id: 'remerciements',
-        title: 'Remerciements Campaign',
+        title: 'Lionel & Tatiana Wedding Thank You Card',
         category: 'Graphic Design',
-        description: 'Visual design and marketing materials',
+        description: 'Elegant wedding thank you card design with gold geometric accents and eucalyptus elements',
         image: 'img/Remerciements.webp'
     },
     {
         id: 'goal',
-        title: 'Goal Setting App',
-        category: 'UI/UX Design',
-        description: 'Mobile app interface and user experience',
+        title: 'Goal Setting Design',
+        category: 'Graphic Design',
+        description: 'Flyer design for goal setting workshop',
         image: 'img/Goal Setting.webp'
     },
     {
         id: 'exotic',
         title: 'Exotic Shawarma',
-        category: 'Brand Design',
+        category: 'Graphic Design',
         description: 'Restaurant branding and menu design',
         image: 'img/Exotic Sharwarma.webp'
     },
     {
         id: 'nouvelle',
         title: 'Nouvelle Collection',
-        category: 'Brand Design',
+        category: 'Graphic Design',
         description: 'Fashion brand identity and packaging',
         image: 'img/Nouvelle 2.webp'
     }
 ];
+
+// Keyboard navigation improvements for portfolio filters
+function enhanceFilterButtonsAccessibility() {
+    const filterButtons = document.querySelectorAll('.portfolio-filter-button');
+    
+    // Add keydown events for keyboard users
+    filterButtons.forEach((btn, index) => {
+        btn.setAttribute('tabindex', '0');
+        btn.setAttribute('role', 'tab');
+        btn.setAttribute('aria-selected', btn.classList.contains('active') ? 'true' : 'false');
+        
+        btn.addEventListener('keydown', (e) => {
+            // Enter or Space to activate button
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                btn.click();
+            }
+            
+            // Left arrow to navigate to previous filter
+            if (e.key === 'ArrowLeft') {
+                e.preventDefault();
+                const prevIndex = (index - 1 + filterButtons.length) % filterButtons.length;
+                filterButtons[prevIndex].focus();
+            }
+            
+            // Right arrow to navigate to next filter
+            if (e.key === 'ArrowRight') {
+                e.preventDefault();
+                const nextIndex = (index + 1) % filterButtons.length;
+                filterButtons[nextIndex].focus();
+            }
+        });
+    });
+}
+
+// Enhance lightbox accessibility
+function enhanceLightboxAccessibility(lightbox) {
+    if (!lightbox) return;
+    
+    // Make close button explicitly accessible
+    const closeButton = lightbox.querySelector('.lightbox-close');
+    closeButton.setAttribute('aria-label', 'Close lightbox');
+    
+    // Add aria attributes to navigation buttons
+    const prevButton = lightbox.querySelector('.prev');
+    const nextButton = lightbox.querySelector('.next');
+    
+    if (prevButton) prevButton.setAttribute('aria-label', 'Previous project');
+    if (nextButton) nextButton.setAttribute('aria-label', 'Next project');
+    
+    // Trap focus within lightbox when open
+    const focusableElements = lightbox.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+    const firstElement = focusableElements[0];
+    const lastElement = focusableElements[focusableElements.length - 1];
+    
+    // Set initial focus on close button
+    firstElement.focus();
+    
+    // Trap focus in the lightbox
+    lightbox.addEventListener('keydown', (e) => {
+        if (e.key === 'Tab') {
+            if (e.shiftKey && document.activeElement === firstElement) {
+                e.preventDefault();
+                lastElement.focus();
+            } else if (!e.shiftKey && document.activeElement === lastElement) {
+                e.preventDefault();
+                firstElement.focus();
+            }
+        }
+    });
+}
+
+// Make portfolio items keyboard accessible
+function enhancePortfolioItemsAccessibility() {
+    const portfolioItems = document.querySelectorAll('.portfolio-item');
+    
+    portfolioItems.forEach(item => {
+        // Make items focusable
+        item.setAttribute('tabindex', '0');
+        item.setAttribute('role', 'button');
+        const title = item.querySelector('.project-title');
+        item.setAttribute('aria-label', `View project: ${title ? title.textContent : 'Portfolio project'}`);
+        
+        // Add keyboard event listener
+        item.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                item.click();
+            }
+        });
+    });
+}
+
+// Add screen reader announcements for dynamic content
+function announceToScreenReader(message) {
+    const announcer = document.getElementById('sr-announcer') || (() => {
+        const el = document.createElement('div');
+        el.id = 'sr-announcer';
+        el.className = 'sr-only';
+        el.setAttribute('aria-live', 'polite');
+        el.setAttribute('aria-atomic', 'true');
+        document.body.appendChild(el);
+        return el;
+    })();
+    
+    announcer.textContent = message;
+}
 
 // Populate portfolio grid
 function loadPortfolio() {
@@ -74,11 +181,11 @@ function loadPortfolio() {
     
     portfolioItems.forEach((item, index) => {
         const portfolioItem = document.createElement('div');
-        portfolioItem.className = 'col-lg-4 col-md-6 portfolio-item';
+        portfolioItem.className = 'col-lg-4 col-md-6 col-sm-12 portfolio-item';
         portfolioItem.setAttribute('data-category', item.category.toLowerCase());
         
         portfolioItem.innerHTML = `
-            <div class="card">
+            <div class="card h-100">
                 <img src="${item.image}" class="card-img-top" alt="${item.title}">
                 <div class="portfolio-info">
                     <h3 class="project-title" data-i18n="work.projects.${item.id}.title">${item.title}</h3>
@@ -258,55 +365,150 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // Form handling
-    const form = document.getElementById('contact-form');
-    if (form) {
-        form.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            
-            const submitBtn = form.querySelector('.submit-btn');
-            const btnText = submitBtn.querySelector('.btn-text');
-            submitBtn.disabled = true;
-            
-            // Save the button's original content
-            const originalContent = btnText.innerHTML;
-            btnText.textContent = i18next.t('contact.form.sending');
+    const contactForm = document.getElementById('contact-form');
+    const nameInput = document.getElementById('name');
+    const emailInput = document.getElementById('email');
+    const subjectInput = document.getElementById('subject');
+    const messageInput = document.getElementById('message');
+    const nameError = document.getElementById('name-error');
+    const emailError = document.getElementById('email-error');
+    const subjectError = document.getElementById('subject-error');
+    const messageError = document.getElementById('message-error');
+    const formStatus = document.getElementById('form-status');
 
-            try {
-                const mainEmailData = {
-                    from_name: form.querySelector('#name').value,
-                    from_email: form.querySelector('#email').value,
-                    subject: form.querySelector('#subject').value,
-                    message: form.querySelector('#message').value
-                };
-                
-                await emailjs.send('service_zps8h0i', 'template_8ht37op', mainEmailData);
-                
-                // Show custom notification in current language
-                const notification = document.getElementById('notification');
-                const notificationTitle = notification.querySelector('h4');
-                const notificationMessage = notification.querySelector('p');
-                
-                notificationTitle.textContent = i18next.t('contact.notification.success');
-                notificationMessage.textContent = i18next.t('contact.notification.message');
-                
-                notification.classList.add('show');
-                
-                // Hide notification after 5 seconds
-                setTimeout(() => {
-                    notification.classList.remove('show');
-                }, 5000);
-                
-                form.reset();
-            } catch (error) {
-                console.error('Error:', error);
-                alert(i18next.t('contact.notification.error', 'Failed to send message. Please try again.'));
+    // Validate form with accessibility in mind
+    contactForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        let valid = true;
+        
+        // Reset error messages
+        nameError.textContent = '';
+        emailError.textContent = '';
+        subjectError.textContent = '';
+        messageError.textContent = '';
+        
+        // Validate name
+        if (!nameInput.value.trim()) {
+            nameError.textContent = 'Please enter your name';
+            nameInput.setAttribute('aria-invalid', 'true');
+            valid = false;
+        } else {
+            nameInput.setAttribute('aria-invalid', 'false');
+        }
+        
+        // Validate email
+        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailInput.value.trim() || !emailPattern.test(emailInput.value.trim())) {
+            emailError.textContent = 'Please enter a valid email address';
+            emailInput.setAttribute('aria-invalid', 'true');
+            valid = false;
+        } else {
+            emailInput.setAttribute('aria-invalid', 'false');
+        }
+        
+        // Validate subject
+        if (!subjectInput.value.trim()) {
+            subjectError.textContent = 'Please enter a subject';
+            subjectInput.setAttribute('aria-invalid', 'true');
+            valid = false;
+        } else {
+            subjectInput.setAttribute('aria-invalid', 'false');
+        }
+        
+        // Validate message
+        if (!messageInput.value.trim()) {
+            messageError.textContent = 'Please enter your message';
+            messageInput.setAttribute('aria-invalid', 'true');
+            valid = false;
+        } else {
+            messageInput.setAttribute('aria-invalid', 'false');
+        }
+        
+        // If form is valid, submit it
+        if (valid) {
+            formStatus.textContent = 'Sending your message...';
+            
+            // Use EmailJS to send email with correct service and template IDs
+            const mainEmailData = {
+                from_name: nameInput.value,
+                from_email: emailInput.value,
+                subject: subjectInput.value,
+                message: messageInput.value
+            };
+            
+            emailjs.send('service_zps8h0i', 'template_8ht37op', mainEmailData)
+                .then(() => {
+                    // Success message
+                    formStatus.textContent = 'Your message has been sent successfully!';
+                    
+                    // Show custom notification in current language
+                    const notification = document.getElementById('notification');
+                    const notificationTitle = notification.querySelector('h4');
+                    const notificationMessage = notification.querySelector('p');
+                    
+                    notificationTitle.textContent = i18next.t('contact.notification.success');
+                    notificationMessage.textContent = i18next.t('contact.notification.message');
+                    
+                    notification.classList.add('show');
+                    contactForm.reset();
+                    
+                    // Reset focus for screen readers
+                    formStatus.focus();
+                    
+                    // Hide notification after 5 seconds
+                    setTimeout(() => {
+                        notification.classList.remove('show');
+                        formStatus.textContent = '';
+                    }, 5000);
+                })
+                .catch((error) => {
+                    // Error message
+                    formStatus.textContent = i18next.t('contact.notification.error', 'Failed to send message. Please try again.');
+                    console.error('EmailJS Error:', error);
+                });
+        } else {
+            // Set focus to the first field with an error
+            if (nameError.textContent) {
+                nameInput.focus();
+            } else if (emailError.textContent) {
+                emailInput.focus();
+            } else if (subjectError.textContent) {
+                subjectInput.focus();
+            } else if (messageError.textContent) {
+                messageInput.focus();
             }
+        }
+    });
 
-            submitBtn.disabled = false;
-            // Reset button text with translation
-            btnText.textContent = i18next.t('contact.form.submit');
-        });
-    }
+    // Add input event listeners to clear error messages as the user types
+    nameInput.addEventListener('input', () => {
+        if (nameInput.value.trim()) {
+            nameError.textContent = '';
+            nameInput.setAttribute('aria-invalid', 'false');
+        }
+    });
+
+    emailInput.addEventListener('input', () => {
+        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (emailInput.value.trim() && emailPattern.test(emailInput.value.trim())) {
+            emailError.textContent = '';
+            emailInput.setAttribute('aria-invalid', 'false');
+        }
+    });
+
+    subjectInput.addEventListener('input', () => {
+        if (subjectInput.value.trim()) {
+            subjectError.textContent = '';
+            subjectInput.setAttribute('aria-invalid', 'false');
+        }
+    });
+
+    messageInput.addEventListener('input', () => {
+        if (messageInput.value.trim()) {
+            messageError.textContent = '';
+            messageInput.setAttribute('aria-invalid', 'false');
+        }
+    });
 
     // Scroll to top functionality
     initScrollToTop();
@@ -351,6 +553,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Lazy Loading
     initLazyLoading();
+
+    // Add accessibility enhancements
+    enhanceFilterButtonsAccessibility();
+    enhancePortfolioItemsAccessibility();
+    
+    // Modify the openLightbox function to include accessibility
+    const originalOpenLightbox = window.openLightbox;
+    window.openLightbox = function(currentIndex) {
+        const result = originalOpenLightbox(currentIndex);
+        enhanceLightboxAccessibility(document.querySelector('.lightbox'));
+        return result;
+    };
 });
 
 // Notification close function
@@ -658,6 +872,12 @@ function updateContent() {
         const key = element.getAttribute('data-i18n');
         element.textContent = i18next.t(key);
     });
+    
+    // Handle title attributes for tooltips
+    document.querySelectorAll('[data-i18n-title]').forEach(element => {
+        const key = element.getAttribute('data-i18n-title');
+        element.setAttribute('title', i18next.t(key));
+    });
 
     // Update dynamic content
     const heroIntro = document.querySelector('.hero-intro');
@@ -679,7 +899,6 @@ function updateContent() {
     const heroSubtitle = document.querySelector('.hero-subtitle');
     heroSubtitle.innerHTML = `
         <p>${i18next.t('hero.subtitle.part1')}</p>
-        <p>${i18next.t('hero.subtitle.part2')}<br>${i18next.t('hero.subtitle.part3')}</p>
     `;
 
     // Update portfolio items

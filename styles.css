@@ -260,13 +260,58 @@ body {
 .hero-subtitle {
     color: var(--primary);
     opacity: 0.8;
-    font-size: 1.1rem;
-    line-height: 1.6;
-    margin-bottom: 2rem;
+    font-size: 1.2rem;
+    line-height: 1.7;
+    margin-bottom: 2.5rem;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    flex-direction: column;
 }
 
 .hero-subtitle p {
-    margin: 0.5rem 0;
+    margin: 0;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
+/* Desktop optimization for three-line hero subtitle */
+@media (min-width: 992px) {
+    .hero-subtitle p {
+        max-width: 650px;
+        display: block;
+        text-align: center;
+        overflow-wrap: break-word;
+        word-wrap: break-word;
+        padding: 0 15px;
+        /* Force three lines through width constraints */
+        width: 650px;
+        line-height: 1.7;
+    }
+}
+
+@media (max-width: 991px) {
+    .hero-subtitle {
+        font-size: 1.1rem;
+        line-height: 1.6;
+    }
+    
+    .hero-subtitle p {
+        max-width: 600px;
+    }
+}
+
+@media (max-width: 768px) {
+    .hero-subtitle {
+        font-size: 1rem;
+    }
+    
+    .hero-subtitle p {
+        max-width: 100%;
+    }
 }
 
 .connect-button {
@@ -284,7 +329,7 @@ body {
 
 .connect-button:hover {
     background: var(--secondary);
-    color: var(--primary);
+    color: var(--text-dark);
 }
 
 .connect-button::before {
@@ -590,45 +635,87 @@ body {
 }
 
 .about-text {
-    padding: 2rem;
+    padding: 2.5rem;
     background: white;
     border-radius: 20px;
     box-shadow: 0 10px 30px rgba(0,0,0,0.05);
     border: 1px solid rgba(0,0,0,0.05);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.about-text::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 5px;
+    height: 100%;
+    background: linear-gradient(to bottom, var(--secondary), rgba(167, 216, 243, 0.2));
+    transition: all 0.3s ease;
+}
+
+.about-text:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 35px rgba(0,0,0,0.08);
 }
 
 .about-description {
-    font-size: 1.1rem;
+    font-size: 1.05rem;
     line-height: 1.8;
     color: #444;
-    margin-bottom: 3rem;
+    margin-bottom: 2.5rem;
+    transition: all 0.3s ease;
+    padding-left: 1rem;
+    position: relative;
+    font-weight: 400;
+    letter-spacing: 0.01rem;
 }
 
+/* Technical Expertise section styling */
 .skills-section h3 {
     font-size: 1.4rem;
     margin-bottom: 1.5rem;
     color: #1a1a1a;
     position: relative;
     padding-left: 1rem;
-    border-left: 4px solid #007bff;
+    border-left: 3px solid var(--secondary);
+    transition: all 0.3s ease;
+    font-weight: 600;
+    display: inline-block;
+}
+
+.skills-section h3::after {
+    content: '';
+    position: absolute;
+    bottom: -6px;
+    left: 1rem;
+    width: 40px;
+    height: 2px;
+    background: linear-gradient(to right, var(--secondary), transparent);
+    border-radius: 2px;
 }
 
 .skill-tags {
     display: flex;
     flex-wrap: wrap;
-    gap: 1rem;
+    gap: 0.8rem;
+    margin-top: 1.2rem;
 }
 
 .skill-tag {
-    padding: 0.8rem 1.5rem;
+    padding: 0.6rem 1.2rem;
     background: white;
-    border-radius: 50px;
-    font-size: 0.95rem;
+    border-radius: 40px;
+    font-size: 0.9rem;
     color: #007bff;
     transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     border: 1px solid rgba(0,123,255,0.2);
     position: relative;
     overflow: hidden;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.02);
+    font-weight: 500;
 }
 
 .skill-tag::before {
@@ -643,12 +730,31 @@ body {
     transition: transform 0.4s ease;
 }
 
+.skill-tag:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0,123,255,0.15);
+    background: #007bff;
+    color: white;
+    border-color: #007bff;
+}
+
 .skill-tag:hover::before {
     transform: translateX(100%);
 }
 
 .skill-tag:active {
     transform: scale(0.95) translateY(-2px);
+}
+
+@media (min-width: 992px) {
+    .about-description {
+        font-size: 1.15rem;
+        line-height: 1.9;
+    }
+    
+    .skill-tag {
+        padding: 0.6rem 1.2rem;
+    }
 }
 
 @media (max-width: 1200px) {
@@ -706,6 +812,24 @@ body {
     .about-content {
         padding-top: 1rem;
     }
+    
+    /* Improved mobile styling for the about text section */
+    .about-text {
+        padding: 1.5rem;
+        border-radius: 15px;
+        box-shadow: 0 8px 20px rgba(0,0,0,0.04);
+        background: linear-gradient(to bottom, white, #f9fbfd);
+        border-left: 3px solid var(--secondary);
+    }
+    
+    .about-description {
+        font-size: 1rem;
+        line-height: 1.7;
+        margin-bottom: 2rem;
+        text-align: left;
+        padding: 0.5rem;
+        letter-spacing: 0.01rem;
+    }
 }
 
 @media (max-width: 480px) {
@@ -713,56 +837,53 @@ body {
         width: 280px;
         height: 280px;
     }
+    
+    .about-text {
+        padding: 1.25rem;
+    }
+    
+    .about-description {
+        font-size: 0.95rem;
+        line-height: 1.65;
+    }
 }
 
 /* Work Section */
 .work {
-    padding: 8rem 0;
-    background: var(--background);
-    position: relative;
-}
-
-.work .container {
-    max-width: 1400px;
+    padding: 6rem 0;
+    background-color: var(--background);
 }
 
 .portfolio-filters {
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
-    gap: 1rem;
-    margin-bottom: 3rem;
+    gap: 10px;
+    margin-bottom: 2.5rem;
 }
 
 .filter-btn {
-    padding: 0.8rem 1.5rem;
-    border: none;
     background: white;
-    color: #666;
+    border: none;
     border-radius: 50px;
+    padding: 8px 20px;
     font-size: 0.9rem;
     font-weight: 500;
+    color: #555;
     cursor: pointer;
-    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    position: relative;
-    overflow: hidden;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
 }
 
 .filter-btn.active {
     background: var(--secondary);
     color: var(--primary);
-    font-weight: 600;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(167, 216, 243, 0.3);
+    box-shadow: 0 5px 15px rgba(167, 216, 243, 0.3);
 }
 
 .filter-btn:hover {
     transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-}
-
-.filter-btn:active {
-    transform: translateY(-1px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
 }
 
 .portfolio-grid {
@@ -771,49 +892,141 @@ body {
 
 .portfolio-item {
     margin-bottom: 30px;
+    padding: 0 15px;
 }
 
 .portfolio-item .card {
-    border: none;
-    border-radius: 12px;
+    position: relative;
+    border-radius: 15px;
     overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32,.275);
     height: 100%;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: none;
+    background: white;
 }
 
 .portfolio-item .card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+    transform: translateY(-10px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.12);
 }
 
 .portfolio-item .card-img-top {
-    height: 300px;
+    width: 100%;
+    height: 230px;
     object-fit: cover;
+    transition: all 0.5s ease;
+}
+
+.portfolio-item .card:hover .card-img-top {
+    transform: scale(1.05);
 }
 
 .portfolio-info {
     padding: 1.5rem;
     background: white;
+    border-top: 1px solid rgba(0, 0, 0, 0.05);
 }
 
 .portfolio-info h3 {
-    font-size: 1.25rem;
-    margin-bottom: 0.5rem;
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+    font-weight: 600;
     color: var(--primary);
+    line-height: 1.3;
 }
 
 .portfolio-info p {
     color: #666;
-    margin-bottom: 1rem;
+    font-size: 0.9rem;
+    margin-bottom: 15px;
+    line-height: 1.5;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-height: 4.5em;
 }
 
 .portfolio-info .category {
     display: inline-block;
-    padding: 0.35rem 1rem;
-    background: rgba(0, 123, 255, 0.1);
-    color: #007bff;
-    border-radius: 50px;
-    font-size: 0.85rem;
+    background: #f5f7fa;
+    color: #555;
+    padding: 4px 12px;
+    border-radius: 30px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.portfolio-item .card:hover .category {
+    background: var(--secondary);
+    color: var(--primary);
+}
+
+/* Responsive adjustments */
+@media (max-width: 991px) {
+    .portfolio-grid {
+        margin: 0 -10px;
+    }
+    
+    .portfolio-item {
+        padding: 0 10px;
+    }
+}
+
+@media (max-width: 767px) {
+    .work {
+        padding: 4rem 0;
+    }
+    
+    .portfolio-filters {
+        margin-bottom: 2rem;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 8px;
+    }
+    
+    .filter-btn {
+        margin-bottom: 0;
+        padding: 6px 15px;
+        font-size: 0.85rem;
+    }
+    
+    .portfolio-item {
+        margin-bottom: 20px;
+    }
+    
+    .portfolio-item .card-img-top {
+        height: 200px;
+    }
+    
+    .portfolio-info {
+        padding: 1.2rem;
+    }
+    
+    .portfolio-info h3 {
+        font-size: 1.1rem;
+        margin-bottom: 8px;
+    }
+    
+    .portfolio-info p {
+        margin-bottom: 12px;
+        font-size: 0.85rem;
+    }
+}
+
+/* For very small screens */
+@media (max-width: 575px) {
+    .portfolio-item {
+        padding: 0 8px;
+    }
+    
+    .portfolio-grid {
+        margin: 0 -8px;
+    }
 }
 
 /* Animation Classes */
@@ -1144,9 +1357,21 @@ textarea.form-control {
 
 /* Footer */
 .footer {
-    background: #1a1a1a;
+    background: linear-gradient(135deg, #121212 0%, #1e1e1e 100%);
     color: white;
     padding: 5rem 0 2rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.footer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--secondary) 0%, #5e72e4 100%);
 }
 
 .footer-content {
@@ -1154,6 +1379,8 @@ textarea.form-control {
     justify-content: space-between;
     gap: 4rem;
     margin-bottom: 3rem;
+    position: relative;
+    z-index: 1;
 }
 
 .footer-left {
@@ -1165,6 +1392,11 @@ textarea.form-control {
     align-items: center;
     text-decoration: none;
     margin-bottom: 1.5rem;
+    transition: transform 0.3s ease;
+}
+
+.footer-logo:hover {
+    transform: translateY(-3px);
 }
 
 .footer-logo .logo-text {
@@ -1181,8 +1413,35 @@ textarea.form-control {
 }
 
 .footer-description {
-    color: #999;
+    color: rgba(255, 255, 255, 0.7);
     line-height: 1.6;
+    font-size: 0.95rem;
+}
+
+.footer-social {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1.5rem;
+}
+
+.social-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 38px;
+    height: 38px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    color: var(--secondary);
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+.social-icon:hover {
+    background: var(--secondary);
+    color: #fff;
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
 }
 
 .footer-links {
@@ -1195,6 +1454,7 @@ textarea.form-control {
     font-size: 1.2rem;
     margin-bottom: 1.5rem;
     position: relative;
+    display: inline-block;
 }
 
 .footer-column h4::after {
@@ -1205,6 +1465,11 @@ textarea.form-control {
     width: 30px;
     height: 2px;
     background: var(--secondary);
+    transition: width 0.3s ease;
+}
+
+.footer-column:hover h4::after {
+    width: 100%;
 }
 
 .footer-column ul {
@@ -1221,37 +1486,68 @@ textarea.form-control {
 }
 
 .footer-column ul a {
-    color: #999;
+    color: rgba(255, 255, 255, 0.7);
     text-decoration: none;
-    transition: color 0.3s ease;
+    transition: all 0.3s ease;
+    position: relative;
+    padding-left: 0;
+}
+
+.footer-column ul a::before {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 1px;
+    bottom: -2px;
+    left: 0;
+    background-color: var(--secondary);
+    transition: width 0.3s ease;
 }
 
 .footer-column ul a:hover {
     color: var(--secondary);
+    padding-left: 5px;
+}
+
+.footer-column ul a:hover::before {
+    width: 100%;
 }
 
 .footer-column i {
     color: var(--secondary);
     font-size: 1rem;
+    transition: transform 0.3s ease;
+}
+
+.footer-column ul li:hover i {
+    transform: translateY(-2px);
 }
 
 .footer-column span {
-    color: #999;
+    color: rgba(255, 255, 255, 0.7);
+    transition: color 0.3s ease;
+}
+
+.footer-column ul li:hover span {
+    color: #fff;
 }
 
 .footer-divider {
     height: 1px;
-    background: rgba(255, 255, 255, 0.1);
+    background: linear-gradient(to right, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.03));
     margin-bottom: 2rem;
 }
 
 .footer-bottom {
     text-align: center;
+    position: relative;
+    z-index: 1;
 }
 
 .copyright {
-    color: #999;
+    color: rgba(255, 255, 255, 0.5);
     margin: 0;
+    font-size: 0.9rem;
 }
 
 @media (max-width: 992px) {
@@ -1263,6 +1559,10 @@ textarea.form-control {
     .footer-left {
         max-width: 100%;
         text-align: center;
+    }
+    
+    .footer-social {
+        justify-content: center;
     }
 
     .footer-links {
@@ -1292,6 +1592,7 @@ textarea.form-control {
 
     .footer-column h4 {
         text-align: center;
+        display: block;
     }
 
     .footer-column h4::after {
@@ -1305,6 +1606,15 @@ textarea.form-control {
 
     .footer-column ul li {
         justify-content: center;
+    }
+    
+    .footer-column ul a::before {
+        left: 50%;
+        transform: translateX(-50%);
+    }
+    
+    .footer-column ul a:hover {
+        padding-left: 0;
     }
 }
 
@@ -2362,7 +2672,9 @@ img.lazy-image {
     margin-right: 1rem;
 }
 
-.language-toggle button {
+.language-toggle button,
+.language-toggle .btn,
+.language-toggle .btn-link {
     color: var(--text-light);
     text-decoration: none;
     padding: 8px 16px;
@@ -2371,12 +2683,14 @@ img.lazy-image {
     display: flex;
     align-items: center;
     gap: 8px;
-    background: rgba(255, 255, 255, 0.1);
-    border: 1px solid var(--secondary);
+    background: #1A1A1A !important;
+    border: 1px solid var(--secondary) !important;
 }
 
-.language-toggle button:hover {
-    background: var(--secondary);
+.language-toggle button:hover,
+.language-toggle .btn:hover,
+.language-toggle .btn-link:hover {
+    background: var(--secondary) !important;
     color: var(--primary);
     transform: translateY(-2px);
 }
@@ -2609,4 +2923,149 @@ img.lazy-image {
     .about-card p {
         font-size: 0.85rem;
     }
+}
+
+.three-line-text {
+    display: inline-block;
+    width: 650px;
+    max-width: 100%;
+    text-align: center;
+    /* Carefully set a line height that makes the text break into 3 balanced lines */
+    line-height: 1.8;
+}
+
+@media (max-width: 768px) {
+    .three-line-text {
+        width: 100%;
+        line-height: 1.6;
+    }
+}
+
+/* Accessibility - Focus styles */
+:focus {
+    outline: 2px solid #007bff;
+    outline-offset: 2px;
+}
+
+button:focus, 
+a:focus,
+input:focus, 
+textarea:focus,
+select:focus,
+.tag:focus,
+.portfolio-filter-button:focus,
+.contact-info-card:focus {
+    outline: 2px solid #007bff;
+    outline-offset: 2px;
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
+}
+
+/* Skip to main content for keyboard users */
+.skip-link {
+    position: absolute;
+    top: -40px;
+    left: 0;
+    background: #007bff;
+    color: white;
+    padding: 8px;
+    z-index: 10000;
+    transition: top 0.3s;
+}
+
+.skip-link:focus {
+    top: 0;
+}
+
+/* Ensure interactive elements have proper hover/focus states */
+.nav-link:focus,
+.portfolio-filter-button:focus,
+.btn:focus,
+.contact-info-card:focus {
+    transform: translateY(-2px);
+}
+
+/* Accessible hiding - Hide content visually but keep it available to screen readers */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+}
+
+/* Improve contrast for text and interactive elements */
+.hero-subtitle, 
+.section-subtitle,
+.about-text,
+.footer-description,
+.input-field::placeholder {
+    color: #4a4a4a; /* Darker gray for better contrast */
+}
+
+.tag {
+    background: #e9ecef;
+    color: #343a40;
+    transition: all 0.3s ease;
+}
+
+.tag:hover, 
+.tag:focus {
+    background: #d0d7de;
+}
+
+/* Make sure all buttons have sufficient contrast */
+.btn:not(.connect-button), 
+.portfolio-filter-button, 
+.submit-button {
+    color: #fff;
+    background: #007bff;
+    transition: all 0.3s ease;
+}
+
+.btn:not(.connect-button):hover, 
+.portfolio-filter-button:hover,
+.submit-button:hover,
+.btn:not(.connect-button):focus, 
+.portfolio-filter-button:focus,
+.submit-button:focus {
+    background: #0069d9;
+}
+
+/* Selected button state */
+.portfolio-filter-button.active {
+    background: #0056b3;
+    color: white;
+}
+
+/* Ensure scrollbar is accessible */
+::-webkit-scrollbar {
+    width: 12px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f5f5f5;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #888;
+    border-radius: 6px;
+    border: 3px solid #f5f5f5;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background-color: #555;
+}
+
+/* Addition for visually hidden focus management */
+.js-focus-visible :focus:not(.focus-visible) {
+    outline: none;
+}
+
+.js-focus-visible .focus-visible {
+    outline: 2px solid #007bff;
+    outline-offset: 2px;
 }

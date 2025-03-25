@@ -14,9 +14,7 @@
       "part4": "futures."
     },
     "subtitle": {
-      "part1": "a Product Designer and Visual Developer in Accra.",
-      "part2": "I specialize in UI/UX Design, Responsive Web Design,",
-      "part3": "and Visual Development."
+      "part1": "balancing aesthetics and functionality, I build dynamic interfaces that prioritize usability and brand identity, from wireframes to live deployment."
     },
     "cta": "CONNECT WITH ME"
   },
@@ -65,7 +63,7 @@
       "all": "All",
       "web": "Web Design",
       "app": "App Design",
-      "brand": "Branding"
+      "graphic": "Graphic Design"
     },
     "projects": {
       "ecommerce": {
@@ -74,9 +72,9 @@
         "category": "Web Design"
       },
       "avarhh": {
-        "title": "Avarhh Brand Identity",
-        "description": "Complete brand identity and visual guidelines",
-        "category": "Brand Design"
+        "title": "Avarhh Exchange Currency Service",
+        "description": "Currency exchange brand identity with focus on West and Central African currencies (Naira, Cedis, CFA)",
+        "category": "Graphic Design"
       },
       "grillhouse": {
         "title": "Grill House Ghana",
@@ -86,27 +84,27 @@
       "beecee": {
         "title": "BeeCee Skincare Brochure",
         "description": "Elegant product brochure design showcasing luxury skincare line with sophisticated layout and premium visual aesthetics",
-        "category": "Brand Design"
+        "category": "Graphic Design"
       },
       "remerciements": {
-        "title": "Remerciements Campaign",
-        "description": "Visual design and marketing materials",
+        "title": "Lionel & Tatiana Wedding Thank You Card",
+        "description": "Elegant wedding thank you card design with gold geometric accents and eucalyptus elements",
         "category": "Graphic Design"
       },
       "nouvelle": {
         "title": "Nouvelle Collection",
         "description": "Fashion brand identity and packaging",
-        "category": "Brand Design"
+        "category": "Graphic Design"
       },
       "exotic": {
         "title": "Exotic Shawarma",
         "description": "Restaurant branding and menu design",
-        "category": "Brand Design"
+        "category": "Graphic Design"
       },
       "goal": {
-        "title": "Goal Setting App",
-        "description": "Mobile app interface and user experience",
-        "category": "UI/UX Design"
+        "title": "Goal Setting Design",
+        "description": "Flyer design for goal setting workshop",
+        "category": "Graphic Design"
       },
       "flc": {
         "title": "First Love Church",
@@ -144,6 +142,12 @@
   },
   "footer": {
     "description": "Crafting digital experiences through creative design and innovative solutions.",
+    "social": {
+      "twitter": "Follow on Twitter",
+      "linkedin": "Connect on LinkedIn",
+      "github": "View GitHub Projects",
+      "dribbble": "See Dribbble Designs"
+    },
     "quickLinks": {
       "title": "Quick Links"
     },
